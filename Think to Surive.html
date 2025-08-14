@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Think to Survive – Hauptmenü</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f4f7;
+      text-align: center;
+      padding: 50px;
+    }
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+    }
+    p {
+      font-size: 1.1em;
+      margin-bottom: 20px;
+    }
+    button {
+      display: block;
+      margin: 10px auto;
+      padding: 12px 24px;
+      font-size: 1em;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 240px;
+    }
+    .active {
+      background-color: #007ACC;
+      color: white;
+    }
+    .active:hover {
+      background-color: #005fa3;
+    }
+    .locked {
+      background-color: #ccc;
+      color: #666;
+      cursor: not-allowed;
+    }
+    #infoBox {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      display: none;
+    }
+    #highscoreBox {
+      margin-top: 30px;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Think to Survive</h1>
+  <p>Wissen, Reaktion und Mut – schaffe alle Levels und besiege den Yeti!</p>
+
+ 
+  <button id="level1Btn" class="active" onclick="startLevel(1)">Level 1: Zoo</button>
+  <button id="level2Btn" class="locked" onclick="startLevel(2)">Level 2: Dorf</button>
+  <button id="level3Btn" class="locked" onclick="startLevel(3)">Level 3: Wald</button>
+  <button id="level4Btn" class="locked" onclick="startLevel(4)">Level 4: Canyon</button>
+  <button id="level5Btn" class="locked" onclick="startLevel(5)">Level 5: Matterhorn</button>
+
+  <hr style="margin: 40px 0;">
+
+  <button onclick="showInstructions()">Anleitung</button>
+  <button onclick="showAbout()">Über das Spiel</button>
+  <button onclick="resetProgress()">Fortschritt zurücksetzen</button>
+  <button onclick="resetHighscore()">Highscore zurücksetzen</button>
+
+  <div id="highscoreBox"></div>
+  <div id="infoBox"></div>
+
+  <script>
+    function loadProgress() {
+      let unlocked = parseInt(localStorage.getItem("unlockedLevel")) || 1;
+      for (let i = 1; i <= 5; i++) {
+        let btn = document.getElementById(`level${i}Btn`);
+        if (i <= unlocked) {
+          btn.classList.remove("locked");
+          btn.classList.add("active");
+        } else {
+          btn.classList.remove("active");
+          btn.classList.add("locked");
+        }
+      }
+
+      let bestTime = localStorage.getItem("bestTime");
+      let box = document.getElementById("highscoreBox");
+      if (bestTime) {
+        box.innerHTML = `🏆 <strong>Beste Zeit:</strong> ${bestTime} Sekunden`;
+      } else {
+        box.innerHTML = `🏆 Noch kein Highscore erzielt`;
+      }
+    }
+
+    function startLevel(level) {
+      let unlocked = parseInt(localStorage.getItem("unlockedLevel")) || 1;
+      if (level > unlocked) {
+        alert("Dieses Level ist noch gesperrt.");
+        return;
+      }
+     window.location.href = src="./prototyp/hauptmenu.html";
+    }
+
+    function unlockLevel(level) {
+      let current = parseInt(localStorage.getItem("unlockedLevel")) || 1;
+      if (level > current && level <= 5) {
+        localStorage.setItem("unlockedLevel", level);
+      }
+    }
+
+    function updateHighscore(seconds) {
+      const best = parseFloat(localStorage.getItem("bestTime"));
+      if (!best || seconds < best) {
+        localStorage.setItem("bestTime", seconds.toFixed(2));
+        alert(`🎉 Neuer Highscore: ${seconds.toFixed(2)} Sekunden!`);
+        loadProgress();
+      }
+    }
+
+    function resetProgress() {
+      if (confirm("Möchtest du wirklich deinen Spielfortschritt zurücksetzen?")) {
+        localStorage.setItem("unlockedLevel", 1);
+        loadProgress();
+        alert("Fortschritt zurückgesetzt.");
+      }
+    }
+
+    function resetHighscore() {
+      if (confirm("Highscore wirklich löschen?")) {
+        localStorage.removeItem("bestTime");
+        loadProgress();
+        alert("Highscore gelöscht.");
+      }
+    }
+
+    function showInstructions() {
+      displayInfo("Anleitung", `
+        - Beantworte Fragen pro Level für Leben\n
+        - Weiche Hindernissen aus\n
+        - Besiege im letzten Level den Endboss\n
+        - Je schneller du alles schaffst, desto besser dein Highscore!
+      `);
+    }
+
+    function showAbout() {
+      displayInfo("Über das Spiel", `
+        Think to Survive kombiniert Quizwissen mit Action!\n
+        Ein Lernspiel voller Spannung – und ein Ziel: Überlebe klug.
+      `);
+    }
+
+    function displayInfo(title, content) {
+      const box = document.getElementById("infoBox");
+      box.style.display = "block";
+      box.innerHTML = "<h2>" + title + "</h2><p>" + content.replace(/\n/g, "<br>") + "</p>";
+    }
+
+    // Start
+    loadProgress();
+  </script>
+
+</body>
+</html>

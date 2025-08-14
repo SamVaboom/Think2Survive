@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8" />
+    <title>Think to Survive – Temp Hauptmenu</title>
+    <style>
+    html, body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    canvas {
+        display: block;
+        width: 100vw;  //grössi isch über de ganz Bildschirm
+        background: #eef;
+    }
+</style>
+
+</head>
+<body>
+    <canvas id="gameCanvas"></canvas>
+	<audio id="MusicGameplay" loop autoplay>
+	  <source src="audio/music.mp3" type="audio/mpeg">
+	  Your browser does not support the audio element.
+	</audio>
+
+    <!-- Alli andere Skripts lade - muess me denn bim Michu oder Dani sim Skript dri tue -->
+    <script src="js/player.js"></script>
+    <script src="js/engine.js"></script>
+    <script src="js/levels/level1.js"></script>
+
+    <script>
+		window.onload = () => {
+			const audio = document.getElementById("MusicGameplay");
+			audio.volume = 0.3;
+			const startGame = () => {
+				audio.play().catch(err => {
+					console.log("Autoplay wurde blockiert, aber es wird nach Interaktion erneut versucht.");
+				});
+
+				initGame(); // Starte Spiel
+				window.removeEventListener("keydown", startGame);
+				window.removeEventListener("mousedown", startGame);
+			};
+
+			// Warte auf erste Benutzerinteraktion
+			window.addEventListener("keydown", startGame);
+			window.addEventListener("mousedown", startGame);
+		};
+	</script>
+
+</body>
+</html>
