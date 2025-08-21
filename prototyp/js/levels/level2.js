@@ -48,54 +48,73 @@ Standardmässig isch das 0 drum wenn mes nid schribt, denn gits ke delay.
 
 function initLevel() {
     // Spieler-Startposition - cha me apasse
-    player.x = 100;
+    player.x = -900;
     player.y = world.height - 130;
     player.spawnPoint = { x: player.x, y: player.y };
 
 
     levelObjects = [
         // Boden über ganzes level
-        { x: -1000, y: world.height - 100, width: world.width + 1000, height: 100, type: 'platform' },
-		// Wand level ende
+        { x: -1000, y: world.height - 100, width: world.width +30, height: 100, type: 'platform' },
+		// Wand level anfang
 		{ x: -1000, y: world.height - 400, width: 50, height: 500, type: 'platform' },
-				
-        // Duck-Passage: zum Ducken mit S
-        { x: 300, y: world.height - 275, width: 200, height: 150, type: 'platform' },
+		// Wand level ende
+		//{ x: world.width, y: world.height - 400, width: 50, height: 500, type: 'platform' },
+			
+        // Duck-Passage 1
+        { x: -700, y: world.height - 275, width: 200, height: 150, type: 'platform' },
 
-        // Gegner hinter Duck-Passage
-        { x: 600, y: world.height - 130, width: 30, height: 30, type: 'danger' },
+		
+        // Gegner 1
+        { x: -400, y: world.height - 130, width: 30, height: 30, type: 'danger' },
 
-        // Plattform zum Springen 
-        { x: 900, y: world.height - 300, width: 150, height: 20, type: 'platform' },
 
-        // Zungenobjekt über Plattform
-        { x: 1150, y: world.height - 450, width: 20, height: 20, type: 'tongue' },
+		// Gegner 2
+        { x: -100, y: world.height - 130, width: 30, height: 30, type: 'danger' },
 
-        // Catcher danach (nur mit Tarnung durch) -- mit bewegung
+
+        // Plattform zum Springen 1
+        { x: 300, y: world.height - 200, width: 200, height: 10, type: 'platform' },
+
+
+		// Gegner 3
+        { x: 400, y: world.height - 120, width: 20, height: 20, type: 'danger' },
+
+
+		// Gegner mit bewegung 1
 		{
-			x: 1600,
+			x: 600,
 			y: world.height - 130,
 			width: 30,
 			height: 30,
 			type: 'catcher',
 			moving: true, //wenn false, denn cha mes eifach wegloh und es isch okay. wenn sichs bewege söu denn muess true si
 			axis: 'x', // x oder y
-			min: 1500, //endposition links bzw oben wenn y achse
-			max: 1700, //endposition rechts bzw unte
+			min: 500, //endposition links bzw oben wenn y achse
+			max: 800, //endposition rechts bzw unte
 			speed: 1, // desto grösser desto schneller (pixel + oder - pro zyklus)
 			direction: 1 // 1 heisst me startet nach rechts wenn x achse/ nach unte wenn y achse. mit 0 geit me nach links / ufe. Nid würk relevant (wird immer bim min und max gswitched)		
 		},
 
-        // Plattform moving 
+
+		// Plattform zum Springen 2
+        { x: 600, y: world.height - 300, width: 200, height: 10, type: 'platform' },
+
+
+		// Gegner 4
+        { x: 870, y: world.height - 200, width: 30, height: 30, type: 'danger' },
+
+
+		// Plattform moving 
         {
-			x: 1350,
+			x: 900,
 			y: world.height - 250,
 			width: 100,
 			height: 20,
 			type: 'platform',
 			moving: true,
 			axis: 'y',
-			min: world.height - 500, 
+			min: world.height - 400, 
 			max: world.height -101, 
 			speed: 1,
 			direction: 1,
@@ -103,11 +122,276 @@ function initLevel() {
 		},
 
 
-        // Checkpoint
-        { x: 1800, y: world.height - 110, width: 30, height: 10, type: 'checkpoint' },
+		// Plattform zum Springen 3
+        { x: 1000, y: world.height - 400, width: 200, height: 10, type: 'platform' },
+
+
+		// Checkpoint 1 unten
+        { x: 1100, y: world.height - 110, width: 30, height: 10, type: 'checkpoint' },
+
+
+		// Checkpoint 1 oben
+        { x: 1100, y: world.height - 410, width: 30, height: 10, type: 'checkpoint' },
+
+
+		// Gegner 5
+        { x: 1500, y: world.height - 330, width: 30, height: 30, type: 'danger' },
+
+
+		// Gegner mit bewegung 2
+		{
+			x: 1500,
+			y: world.height - 130,
+			width: 30,
+			height: 30,
+			type: 'catcher',
+			moving: true, //wenn false, denn cha mes eifach wegloh und es isch okay. wenn sichs bewege söu denn muess true si
+			axis: 'x', // x oder y
+			min: 1300, //endposition links bzw oben wenn y achse
+			max: 1800, //endposition rechts bzw unte
+			speed: 1, // desto grösser desto schneller (pixel + oder - pro zyklus)
+			direction: 1 // 1 heisst me startet nach rechts wenn x achse/ nach unte wenn y achse. mit 0 geit me nach links / ufe. Nid würk relevant (wird immer bim min und max gswitched)		
+		},
+
+
+		// Gegner mit bewegung 3
+		{
+			x: 1800,
+			y: world.height - 130,
+			width: 30,
+			height: 30,
+			type: 'catcher',
+			moving: true, //wenn false, denn cha mes eifach wegloh und es isch okay. wenn sichs bewege söu denn muess true si
+			axis: 'x', // x oder y
+			min: 1300, //endposition links bzw oben wenn y achse
+			max: 1800, //endposition rechts bzw unte
+			speed: 1, // desto grösser desto schneller (pixel + oder - pro zyklus)
+			direction: 1 // 1 heisst me startet nach rechts wenn x achse/ nach unte wenn y achse. mit 0 geit me nach links / ufe. Nid würk relevant (wird immer bim min und max gswitched)		
+		},
+
+		// Plattform zum Springen 4
+        { x: 1400, y: world.height - 300, width: 200, height: 10, type: 'platform' },
+
+
+		// Gegner mit bewegung 4
+		{
+			x: 1600,
+			y: world.height - 200,
+			width: 30,
+			height: 30,
+			type: 'catcher',
+			moving: true, //wenn false, denn cha mes eifach wegloh und es isch okay. wenn sichs bewege söu denn muess true si
+			axis: 'y', // x oder y
+			min: world.height - 400, //endposition links bzw oben wenn y achse
+			max: world.height - 250, //endposition rechts bzw unte
+			speed: 1, // desto grösser desto schneller (pixel + oder - pro zyklus)
+			direction: 1 // 1 heisst me startet nach rechts wenn x achse/ nach unte wenn y achse. mit 0 geit me nach links / ufe. Nid würk relevant (wird immer bim min und max gswitched)		
+		},
+
+
+		// Plattform zum Springen 5
+        { x: 1800, y: world.height - 200, width: 200, height: 10, type: 'platform' },
+
+
+		// Gegner mit bewegung 5
+		{
+			x: 2000,
+			y: world.height - 100,
+			width: 30,
+			height: 30,
+			type: 'catcher',
+			moving: true, //wenn false, denn cha mes eifach wegloh und es isch okay. wenn sichs bewege söu denn muess true si
+			axis: 'y', // x oder y
+			min: world.height - 250, //endposition links bzw oben wenn y achse
+			max: world.height - 100, //endposition rechts bzw unte
+			speed: 1, // desto grösser desto schneller (pixel + oder - pro zyklus)
+			direction: 1 // 1 heisst me startet nach rechts wenn x achse/ nach unte wenn y achse. mit 0 geit me nach links / ufe. Nid würk relevant (wird immer bim min und max gswitched)		
+		},
+
+
+		// Gegner 6
+        { x: 1800, y: world.height - 120, width: 20, height: 20, type: 'danger' },
+
+
+		// Checkpoint 2
+        { x: 2200, y: world.height - 110, width: 30, height: 10, type: 'checkpoint' },
+
+
+		// Zungenobjekt über Plattform 1
+        { x: 2200, y: world.height - 450, width: 20, height: 20, type: 'tongue' },
+
+
+		//Duck-Passage 2
+		{ x: 2300, y: world.height - 275, width: 100, height: 150, type: 'platform' },
+
+
+		// Gegner 7
+        { x: 2500, y: world.height - 130, width: 30, height: 30, type: 'danger' },
+
+
+		// Zungenobjekt über Plattform 1
+        { x: 2500, y: world.height - 450, width: 20, height: 20, type: 'tongue' },
+
+
+		//Duck-Passage 3
+		{ x: 2600, y: world.height - 275, width: 100, height: 150, type: 'platform' },
+
+
+		// Plattform zum Springen 6
+        { x: 2700, y: world.height - 275, width: 300, height: 10, type: 'platform' },
+
+
+		// Gegner 8
+        { x: 2800, y: world.height - 130, width: 30, height: 30, type: 'danger' },
+
+
+		// Gegner 9
+        { x: 2900, y: world.height - 130, width: 30, height: 30, type: 'danger' },
+
+
+		// Gegner mit bewegung 6
+		{
+			x: 2800,
+			y: world.height - 305,
+			width: 30,
+			height: 30,
+			type: 'catcher',
+			moving: true, //wenn false, denn cha mes eifach wegloh und es isch okay. wenn sichs bewege söu denn muess true si
+			axis: 'x', // x oder y
+			min: 2800, //endposition links bzw oben wenn y achse
+			max: 3100, //endposition rechts bzw unte
+			speed: 1, // desto grösser desto schneller (pixel + oder - pro zyklus)
+			direction: 1 // 1 heisst me startet nach rechts wenn x achse/ nach unte wenn y achse. mit 0 geit me nach links / ufe. Nid würk relevant (wird immer bim min und max gswitched)		
+		},
+
+
+		//Duck-Passage 4
+		{ x: 3000, y: world.height - 275, width: 250, height: 150, type: 'platform' },
+
+
+		// Gegner mit bewegung 7
+		{
+			x: 3400,
+			y: world.height - 130,
+			width: 30,
+			height: 30,
+			type: 'catcher',
+			moving: true, //wenn false, denn cha mes eifach wegloh und es isch okay. wenn sichs bewege söu denn muess true si
+			axis: 'x', // x oder y
+			min: 3400, //endposition links bzw oben wenn y achse
+			max: 4600, //endposition rechts bzw unte
+			speed: 1, // desto grösser desto schneller (pixel + oder - pro zyklus)
+			direction: 1 // 1 heisst me startet nach rechts wenn x achse/ nach unte wenn y achse. mit 0 geit me nach links / ufe. Nid würk relevant (wird immer bim min und max gswitched)		
+		},
+
+
+		// Gegner mit bewegung 8
+		{
+			x: 3600,
+			y: world.height - 130,
+			width: 30,
+			height: 30,
+			type: 'catcher',
+			moving: true, //wenn false, denn cha mes eifach wegloh und es isch okay. wenn sichs bewege söu denn muess true si
+			axis: 'x', // x oder y
+			min: 3400, //endposition links bzw oben wenn y achse
+			max: 4600, //endposition rechts bzw unte
+			speed: 1, // desto grösser desto schneller (pixel + oder - pro zyklus)
+			direction: 1 // 1 heisst me startet nach rechts wenn x achse/ nach unte wenn y achse. mit 0 geit me nach links / ufe. Nid würk relevant (wird immer bim min und max gswitched)		
+		},
+
+
+		// Gegner mit bewegung 9
+		{
+			x: 4100,
+			y: world.height - 130,
+			width: 30,
+			height: 30,
+			type: 'catcher',
+			moving: true, //wenn false, denn cha mes eifach wegloh und es isch okay. wenn sichs bewege söu denn muess true si
+			axis: 'x', // x oder y
+			min: 3400, //endposition links bzw oben wenn y achse
+			max: 4600, //endposition rechts bzw unte
+			speed: 1, // desto grösser desto schneller (pixel + oder - pro zyklus)
+			direction: 1 // 1 heisst me startet nach rechts wenn x achse/ nach unte wenn y achse. mit 0 geit me nach links / ufe. Nid würk relevant (wird immer bim min und max gswitched)		
+		},
+
+
+		// Gegner mit bewegung 10
+		{
+			x: 4300,
+			y: world.height - 130,
+			width: 30,
+			height: 30,
+			type: 'catcher',
+			moving: true, //wenn false, denn cha mes eifach wegloh und es isch okay. wenn sichs bewege söu denn muess true si
+			axis: 'x', // x oder y
+			min: 3400, //endposition links bzw oben wenn y achse
+			max: 4400, //endposition rechts bzw unte
+			speed: 1, // desto grösser desto schneller (pixel + oder - pro zyklus)
+			direction: 1 // 1 heisst me startet nach rechts wenn x achse/ nach unte wenn y achse. mit 0 geit me nach links / ufe. Nid würk relevant (wird immer bim min und max gswitched)		
+		},
+
+
+		// Gegner mit bewegung 11
+		{
+			x: 4500,
+			y: world.height - 200,
+			width: 30,
+			height: 30,
+			type: 'catcher',
+			moving: true, //wenn false, denn cha mes eifach wegloh und es isch okay. wenn sichs bewege söu denn muess true si
+			axis: 'y', // x oder y
+			min: world.height - 250, //endposition links bzw oben wenn y achse
+			max: world.height - 130, //endposition rechts bzw unte
+			speed: 1, // desto grösser desto schneller (pixel + oder - pro zyklus)
+			direction: 1 // 1 heisst me startet nach rechts wenn x achse/ nach unte wenn y achse. mit 0 geit me nach links / ufe. Nid würk relevant (wird immer bim min und max gswitched)		
+		},
+		
+
+		// Gegner mit bewegung 12
+		{
+			x: 4650,
+			y: world.height - 160,
+			width: 30,
+			height: 30,
+			type: 'catcher',
+			moving: true, //wenn false, denn cha mes eifach wegloh und es isch okay. wenn sichs bewege söu denn muess true si
+			axis: 'y', // x oder y
+			min: world.height - 250, //endposition links bzw oben wenn y achse
+			max: world.height - 130, //endposition rechts bzw unte
+			speed: 1, // desto grösser desto schneller (pixel + oder - pro zyklus)
+			direction: 1 // 1 heisst me startet nach rechts wenn x achse/ nach unte wenn y achse. mit 0 geit me nach links / ufe. Nid würk relevant (wird immer bim min und max gswitched)		
+		},
+
+
+		// Gegner mit bewegung 13
+		{
+			x: 4800,
+			y: world.height - 130,
+			width: 30,
+			height: 30,
+			type: 'catcher',
+			moving: true, //wenn false, denn cha mes eifach wegloh und es isch okay. wenn sichs bewege söu denn muess true si
+			axis: 'y', // x oder y
+			min: world.height - 250, //endposition links bzw oben wenn y achse
+			max: world.height - 130, //endposition rechts bzw unte
+			speed: 1, // desto grösser desto schneller (pixel + oder - pro zyklus)
+			direction: 1 // 1 heisst me startet nach rechts wenn x achse/ nach unte wenn y achse. mit 0 geit me nach links / ufe. Nid würk relevant (wird immer bim min und max gswitched)		
+		},
+
 
         // Ziel ganz rechts
-        { x: 2000, y: world.height - 130, width: 30, height: 30, type: 'goal' }
+        { x: 4970, y: world.height - 120, width: 30, height: 20, type: 'goal' },
+
+
+		// Ausserhalb Spielbereich
+        { x: 0, y: world.height + 30, width: 6000, height: 30, type: 'danger' },
+
+
+
+
     ];
 }
+
 
