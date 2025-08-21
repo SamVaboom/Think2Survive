@@ -1,0 +1,152 @@
+[
+  {
+    "question": "Was ist der höchste Berg der Schweiz?",
+    "answers": ["Matterhorn", "Dufourspitze", "Rigi", "Pilatus"],
+    "correctAnswer": 1
+  },
+  {
+    "question": "Welches Gestein kommt am meisten vor in den Schweizer Alpen?",
+    "answers": ["Granit", "Sandstein", "Vulkangestein", "Kalk"],
+    "correctAnswer": 0
+  },
+  {
+    "question": "Welcher Schweizer Berg ist bekannt für seine pyramidenartige Form?",
+    "answers": ["Matterhorn", "Eiger", "Jungfrau", "Mönch"],
+    "correctAnswer": 0
+  },
+  {
+    "question": "Welcher Kristall kommt in den Schweizer Bergen am häufigsten vor?",
+    "answers": ["Quarz", "Diamant", "Smaragd", "Rubin"],
+    "correctAnswer": 0
+  },
+  {
+    "question": "Wie heisst das Mittelgebirge, das sich vom Genfersee bis nach Basel zieht?",
+    "answers": ["Jura", "Rocky Mountains", "Himalaya", "Kaukasus"],
+    "correctAnswer": 0
+  },
+  {
+    "question": "Welcher Pass verbindet den Kanton Tessin mit dem Kanton Uri?",
+    "answers": ["Grimselpass", "Gotthardpass", "Berninapass", "Julierpass"],
+    "correctAnswer": 1
+  },
+  {
+    "question": "Welcher Berg wird auf der Toblerone Schokolade abgebildet?",
+    "answers": ["Matterhorn", "Rigi", "Pilatus", "Piz Bernina"],
+    "correctAnswer": 0
+  },
+  {
+    "question": "Welcher dieser Begriffe bezeichnet ein kristallines Mineral?",
+    "answers": ["Gneis", "Basalt", "Quarz", "Ton"],
+    "correctAnswer": 2
+  },
+  {
+    "question": "Welcher dieser Schweizer Berge ist ein beliebtes Ausflugsziel in der Nähe von Luzern?",
+    "answers": ["Tödi", "Pilatus", "Finsteraarhorn", "Piz Bernina"],
+    "correctAnswer": 1
+  },
+  {
+    "question": "Was befindet sich am Jungfraujoch auf über 3'400 Metern Höhe?",
+    "answers": ["Ein Flughafen", "Ein Bahnhof", "Ein Fussballplatz", "Ein Golfplatz"],
+    "correctAnswer": 1
+  },
+  {
+    "question": "Was ist der östlichste 4000er Berg der Schweiz?",
+    "answers": ["Matterhorn", "Piz Bernina", "Rigi", "Säntis"],
+    "correctAnswer": 1
+  },
+  {
+    "question": "Ab welcher Hangneigung kann eine Lawine entstehen?",
+    "answers": ["15°", "10°", "90°", "30°"],
+    "correctAnswer": 3
+  },
+  {
+    "question": "Was ist der längste Gletscher der Alpen?",
+    "answers": ["Aletschgletscher", "Rhonegletscher", "Gornergletscher", "Zmuttgletscher"],
+    "correctAnswer": 0
+  },
+  {
+    "question": "Wie nennt man die Grenze, oberhalb der kein Wald mehr wächst?",
+    "answers": ["Fichtengrenze", "Waldgrenze", "Schneegrenze", "Eisgrenze"],
+    "correctAnswer": 1
+  },
+  {
+    "question": "Ab welcher ungefähren Höhe leben keine Säugetiere mehr in der Schweiz?",
+    "answers": ["1500 m", "2000 m", "2500 m", "3000 m"],
+    "correctAnswer": 3
+  },
+  {
+    "question": "Welche Gesteinsart ist nicht typisch für das Alpenmassiv?",
+    "answers": ["Gneis", "Kalk", "Schiefer", "Sandstein"],
+    "correctAnswer": 3
+  },
+  {
+    "question": "Wie wird der Boden/Untergrund genannt, welcher immer gefroren ist?",
+    "answers": ["Permafrost", "Gletschergrund", "Eisfundament", "Kaltboden"],
+    "correctAnswer": 0
+  },
+  {
+    "question": "In welchem Land ausser der Schweiz befindet sich noch der Gebirgszug Jura?",
+    "answers": ["Frankreich", "Italien", "Deutschland", "Österreich"],
+    "correctAnswer": 0
+  },
+  {
+    "question": "In welchem Kanton befindet sich die Rheinquelle?",
+    "answers": ["Tessin", "Graubünden", "Uri", "Wallis"],
+    "correctAnswer": 1
+  },
+  {
+    "question": "Wie viel Prozent der Fläche der Schweiz sind von Bergen bedeckt?",
+    "answers": ["ca. 40 %", "ca. 50 %", "ca. 60 %", "ca. 70 %"],
+    "correctAnswer": 3
+  },
+  {
+    "question": "In welchem Kanton befinden sich die meisten 4000er Berge?",
+    "answers": ["Wallis", "Bern", "Graubünden", "Uri"],
+    "correctAnswer": 0
+  },
+  {
+    "question": "Wie heisst das letzte Stück eines Gletschers?",
+    "answers": ["Gletscherbecken", "Eisspitze", "Gletscherzunge", "Gletscherlauf"],
+    "correctAnswer": 2
+  },
+  {
+    "question": "Wie heisst das grösste Skigebiet der Schweiz?",
+    "answers": ["Davos-Klosters", "Engelberg-Titlis", "Zermatt-Cervinia", "Les 4 Vallées"],
+    "correctAnswer": 3
+  },
+  {
+    "question": "Wie heisst die höchste Erhebung des Schweizer Juras?",
+    "answers": ["Chasseral", "Dôle", "Mont Tendre", "Weissenstein"],
+    "correctAnswer": 2
+  },
+  {
+    "question": "Welcher ist der höchste Berg, der komplett in der Schweiz liegt?",
+    "answers": ["Matterhorn", "Dufourspitze", "Dom", "Weisshorn"],
+    "correctAnswer": 2
+  },
+  {
+    "question": "Wie hoch ist die Waldgrenze ca. in den Schweizer Alpen?",
+    "answers": ["1'500 m", "1'800 m", "2'000 m", "2'300 m"],
+    "correctAnswer": 2
+  },
+  {
+    "question": "Welcher Schweizer Berg hat im Verhältnis die meisten Toten bei der Besteigung?",
+    "answers": ["Matterhorn", "Eiger", "Weisshorn", "Dammastock"],
+    "correctAnswer": 0
+  },
+  {
+    "question": "Wie nennt man, wenn man in einem Schneesturm kurzzeitig erblindet?",
+    "answers": ["Eisblindheit", "Schneeblitz", "Lawinensicht", "Schneeblindheit"],
+    "correctAnswer": 3
+  },
+  {
+    "question": "Wie nennt man den Südwind, welcher als warmer, trockener Fallwind in die Täler bläst?",
+    "answers": ["Schirokko", "Föhn", "Mistral", "Bora"],
+    "correctAnswer": 1
+  },
+  {
+    "question": "Wie kalt war die tiefste je gemessene Temperatur in der Schweiz?",
+    "answers": ["-28 °C", "-32 °C", "-38 °C", "-41.8 °C"],
+    "correctAnswer": 3
+  }
+]

@@ -1,0 +1,128 @@
+
+[
+        {
+            "question": "Welcher Baum ist der häufigste in der Schweiz?",
+            "answers": ["Lärche", "Birke", "Fichte", "Buche"],
+            "correctAnswer": 2 
+        },
+        {
+            "question": "Welche Baumart ist typisch für subalpine Wälder?",
+            "answers": ["Eiche", "Lärche", "Hainbuche", "Esche"],
+            "correctAnswer": 1  
+        },
+        {
+            "question": "Welcher Baum kommt in der Schweiz natürlich in Auenwäldern vor?",
+            "answers": ["Weide", "Ahorn", "Kastanie", "Föhre"],
+            "correctAnswer": 0  
+        },
+        {
+            "question": "Was ist eine typische Baumart der inneralpinen Trockenwälder?",
+            "answers": ["Rotbuche", "Föhre", "Esche", "Linde"],
+            "correctAnswer": 1  
+        },
+        {
+            "question": "Welche Baumart ist besonders anfällig für Borkenkäfer?",
+            "answers": ["Esche", "Lärche", "Fichte", "Weisstanne"],
+            "correctAnswer": 2  
+        },
+        {
+            "question": "Welche Hauptfunktion erfüllt der Schutzwald?",
+            "answers": ["Holzproduktion", "Erholung", "Lawinen- und Steinschlagschutz", "Biodiversitätsförderung"],
+            "correctAnswer": 2  
+        },
+        {
+            "question": "Was ist Totholz im Wald?",
+            "answers": ["Asche von verbrennten Stämmen", "Abgestorbene Bäume und Äste", "Brennholzvorräte", "Baumstümpfe mit Pilzen"],
+            "correctAnswer": 1  
+        },
+        {
+            "question": "Wie nennt man die Zone, in der Bäume nicht mehr natürlich wachsen können (wegen der Höhe)?",
+            "answers": ["Waldgrenze", "Baumhöhengrenze", "Vegetationslinie", "Klimazone"],
+            "correctAnswer": 0  
+        },
+        {
+            "question": "Wie viel Prozent der Fläche der Schweiz ist bewaldet (ca.)?",
+            "answers": ["26%", "31%", "43%", "48%"],
+            "correctAnswer": 1 
+        },
+        {
+            "question": "Welche Pflanze ist ein typischer Frühblüher im Schweizer Wald?",
+            "answers": ["Schlüsselblume", "Buschwindröschen", "Enzian", "Edelweiss"],
+            "correctAnswer": 1  
+        },
+        {
+            "question": "Welche Pflanze wächst typischerweise in kalkarmen Moorböden?",
+            "answers": ["Sonnentau", "Alpenrose", "Holunder", "Schlehe"],
+            "correctAnswer": 0  
+        },
+        {
+            "question": "Wo wächst das Edelweiss in der Schweiz?",
+            "answers": ["Im Jura", "In Alpentälern", "Auf alpinen Kalkböden in Höhen über 1500m", "In Feuchtgebieten"],
+            "correctAnswer": 2  
+        },
+        {
+            "question": "Was darf in einem Naturschutzgebiet nicht gemacht werden?",
+            "answers": ["Wandern", "Pilze sammeln", "Tiere Beobachten", "Fotografieren"],
+            "correctAnswer": 1  
+        },
+        {
+            "question": "Welche Organisation schützt Schweizer Wälder und Artenvielfalt?",
+            "answers": ["Pro Natura", "SwissSki", "CH Tourismus", "Agroscope"],
+            "correctAnswer": 0  
+        },
+        {
+            "question": "Was ist das Ziel eines Biosphärenreservats wie der Entlebucher Biosphäre?",
+            "answers": ["Nur Tourismus fördern", "Landwirtschaft ausweiten", "Natur, Kultur und Wirtschaft verbinden ", "Nationalparks ersetzen"],
+            "correctAnswer": 2  
+        },
+        {
+            "question": "Welche dieser Pflanzen wächst NICHT in der Schweiz wild?",
+            "answers": ["Alpenscharte", "Arve", "Mammutbaum", "Enzian"],
+            "correctAnswer": 2 
+        },
+        {
+            "question": "Welche Pflanze wächst vor allem auf sauren Waldböden?",
+            "answers": ["Heidelbeere", "Brennnessel", "Klee", "Margerite"],
+            "correctAnswer": 0  
+        },
+        {
+            "question": "Was ist ein typisches Erkennungsmerkmal des Wacholders?",
+            "answers": ["Rote Blätter", "Gelbe Früchte", "Blaugrüne Nadeln und Beeren", "Glatte Rinde"],
+            "correctAnswer": 2  
+        },
+        {
+            "question": "Welche alpine Pflanze steht unter strengem Schutz?",
+            "answers": ["Huflattich", "Edelweiss", "Gänseblümchen", "Brennnessel"],
+            "correctAnswer": 1  
+        },
+        {
+            "question": "Welche der folgenden Pflanzen ist für Tiere im Winter besonders wichtig?",
+            "answers": ["Alpenrose", "Wacholder", "Klatschmohn", "Krokus"],
+            "correctAnswer": 1  
+        },
+        {
+            "question": "Was fördert die Biodiversität im Wald am meisten?",
+            "answers": ["Monokulturen", "Kahlschläge", "Strukturreichtum mit Totholz", "Regelmässige Düngung"],
+            "correctAnswer": 2  
+        },
+        {
+            "question": "Welcher dieser Sträucher ist typisch für den Schweizer Bergwald?",
+            "answers": ["Heidelbeere", "Oleander", "Rosmarin", "Lorbeer"],
+            "correctAnswer": 0  
+        },
+        {
+            "question": "Welche Baumart verliert im Winter ihre Nadeln?",
+            "answers": ["Tanne", "Fichte", "Kiefer", "Lärche"],
+            "correctAnswer": 3  
+        },
+        {
+            "question": "Welche Baumart ist besonders häufig im Schweizer Mittelland zu finden?",
+            "answers": ["Kastanie", "Buche", "Eiche", "Birke"],
+            "correctAnswer": 1  
+        },
+        {
+            "question": "Wie nennt man die wissenschaftliche Lehre von Pflanzen?",
+            "answers": ["Zoologie", "Biologie", "Botanik", "Ökologie"],
+            "correctAnswer": 2  
+        }
+    ]

@@ -1,0 +1,302 @@
+[
+    {
+        "question": "Welche Partei hat den grössten Wähler*innen Anteil Stand 2023?",
+        "answers": [
+            "SVP",
+            "SP",
+            "FDP",
+            "Die Mitte"
+        ],
+        "correctAnswer": 0
+    },
+    {
+        "question": "Wie viele Mitglieder hat der Bundesrat?",
+        "answers": [
+            "5",
+            "7",
+            "9",
+            "11"
+        ],
+        "correctAnswer": 1
+    },
+    {
+        "question": "Wie lange dauert eine Legislaturperiode im Nationalrat?",
+        "answers": [
+            "2 Jahre",
+            "4 Jahre",
+            "5 Jahre",
+            "6 Jahre"
+        ],
+        "correctAnswer": 1
+    },
+    {
+        "question": "Welches war der letzte Kanton der das Frauenstimmrecht einführte?",
+        "answers": [
+            "Luzern (1 Jahr vor der Einführung auf Bundesebene)",
+            "Solothurn (11 Jahre nach der Einführung auf Bundesebene)",
+            "Appenzell Ausserrhoden (1 Jahr nach der Einführung auf Bundesebene)",
+            "Appenzell Innerrhoden (19 Jahre nach Einführung auf Bundesebene)"
+        ],
+        "correctAnswer": 3
+    },
+    {
+        "question": "Wann wurde das Frauenstimmrecht in der Schweiz eingeführt?",
+        "answers": [
+            "1937",
+            "1955",
+            "1963",
+            "1971"
+        ],
+        "correctAnswer": 3
+    },
+    {
+        "question": "Wie viele Sitze hat der Nationalrat?",
+        "answers": [
+            "25",
+            "44",
+            "196",
+            "200"
+        ],
+        "correctAnswer": 3
+    },
+    {
+        "question": "Wie viele Parteien sind im Nationalrat Stand 2023 vertreten?",
+        "answers": [
+            "21",
+            "6",
+            "11",
+            "55"
+        ],
+        "correctAnswer": 0
+    },
+    {
+        "question": "Welches ist die älteste Partei der Schweiz?",
+        "answers": [
+            "SVP",
+            "SP",
+            "FDP",
+            "Die Mitte (Früher CVP)"
+        ],
+        "correctAnswer": 1
+    },
+    {
+        "question": "Wie lange dauert das Amt als Bundespräsident*in",
+        "answers": [
+            "1 Jahr",
+            "2 Jahre",
+            "4 Jahre",
+            "10 Jahre"
+        ],
+        "correctAnswer": 0
+    },
+    {
+        "question": "Wie lange ist die Amtsdauer des Schweizer Armeechef*in",
+        "answers": [
+            "3 Jahre",
+            "5 Jahre",
+            "8 Jahre",
+            "Die Amtsdauer ist nicht definiert"
+        ],
+        "correctAnswer": 3
+    },
+    {
+        "question": "Welches ist der jüngste Kanton der Schweiz?",
+        "answers": [
+            "Basel Stadt",
+            "Tessin",
+            "Jura",
+            "Vaud"
+        ],
+        "correctAnswer": 2
+    },
+    {
+        "question": "Wie viele Site hat der Ständerat?",
+        "answers": [
+            "26",
+            "32",
+            "46",
+            "102"
+        ],
+        "correctAnswer": 2
+    },
+    {
+        "question": "Wann wurde die erste Frau in das Schweizer Parlament gewählt?",
+        "answers": [
+            "1955",
+            "1971",
+            "1987",
+            "2001"
+        ],
+        "correctAnswer": 1
+    },
+    {
+        "question": "Wo hat das Schweizer Parlament ihren Sitz?",
+        "answers": [
+            "Bern",
+            "Zürich",
+            "Genf",
+            "Brüssel"
+        ],
+        "correctAnswer": 0
+    },
+    {
+        "question": "Von wem werden die Richter*innen am Schweizerischen Bundesgericht gewählt?",
+        "answers": [
+            "Bundesrat",
+            "Nationalrat",
+            "Ständerat",
+            "Vereinigte Bundesversammlung"
+        ],
+        "correctAnswer": 3
+    },
+    {
+        "question": "Wie viele Unterschriften braucht es um eine Volksinitiative zu Starten?",
+        "answers": [
+            "250 Tausend",
+            "20 Tausend aus jedem Kanton",
+            "100 Tausend",
+            "10 aus jeder Gemeinde"
+        ],
+        "correctAnswer": 3
+    },
+    {
+        "question": "Wie ist die politische Einstellung der Westschweiz im Vergleich zu der restlichen Schweiz",
+        "answers": [
+            "Liberaler",
+            "Konservativer",
+            "Radikaler",
+            "Neutraler"
+        ],
+        "correctAnswer": 0
+    },
+    {
+        "question": "Welche Sprache ist keine Amtssprache der Schweiz?",
+        "answers": [
+            "Italienisch",
+            "Deutsch",
+            "Englisch",
+            "Französisch"
+        ],
+        "correctAnswer": 2
+    },
+    {
+        "question": "Was bedeutet Förderalismus in der Schweiz?",
+        "answers": [
+            "Einheitliches Recht in allen Kantonen",
+            "Selbstständigkeit der Kantone",
+            "Zentralisierung der Macht",
+            "Aufhebung der Gewaltenteilung"
+        ],
+        "correctAnswer": 1
+    },
+    {
+        "question": "Wie viele Halbkantone gibt es?",
+        "answers": [
+            "2",
+            "4",
+            "6",
+            "8"
+        ],
+        "correctAnswer": 3
+    },
+    {
+        "question": "Welches Recht ist in Bundesverfassung verankert?",
+        "answers": [
+            "Bankgeheimniss",
+            "Meinungsfreiheit",
+            "Berufszwang",
+            "Amtsgeheimniss"
+        ],
+        "correctAnswer": 1
+    },
+    {
+        "question": "Welche Demakratieform gilt im Schweizer System?",
+        "answers": [
+            "halbdirekt Demokratie",
+            "direkte Demokratie",
+            "representative Demokratie",
+            "autokratische Demokratie"
+        ],
+        "correctAnswer": 0
+    },
+    {
+        "question": "Wie viele Amtsperioden darf ein Bundesrat oder eine Bundesrätin absolvieren",
+        "answers": [
+            "1",
+            "2",
+            "bis zu 6",
+            "keine Begrenzung"
+        ],
+        "correctAnswer": 3
+    },
+    {
+        "question": "Welcher Kanton hat die meisten Sitze im Nationalrat?",
+        "answers": [
+            "Zürich",
+            "Waadt",
+            "Bern",
+            "St. Gallen"
+        ],
+        "correctAnswer": 0
+    },
+    {
+        "question": "Welche Abstimmung hat die Schweiz 2021 angenommen?",
+        "answers": [
+            "Verbot synthetischer Pestizide",
+            "Ehe für alle",
+            "Verbot Tierversuche",
+            "Abschaffung der Armee"
+        ],
+        "correctAnswer": 1
+    },
+    {
+        "question": "Wie viele Unterschriften braucht ein fakultatives Referendum?",
+        "answers": [
+            "50'000",
+            "100'000",
+            "75'000",
+            "10'000"
+        ],
+        "correctAnswer": 0
+    },
+    {
+        "question": "Wer ist 2024 Bundespräsident*in der Schweiz?",
+        "answers": [
+            "Viola Amherd",
+            "Ignazio Cassis",
+            "Alain Berset",
+            "Elisabeth Baume-Schneider"
+        ],
+        "correctAnswer": 0
+    },
+    {
+        "question": "Welches der folgenden ist **kein** eidgenössisches Departement?",
+        "answers": [
+            "Eidgenössisches Departement des Innern (EDI)",
+            "Eidgenössisches Departement für Verteidigung, Bevölkerungsschutz und Sport (VBS)",
+            "Eidgenössisches Departement für Wirtschaft, Bildung und Forschung (WBF)",
+            "Eidgenössisches Departement für Landwirtschaft und Tourismus (DLT)"
+        ],
+        "correctAnswer": 3
+    },
+    {
+        "question": "Wie positioniert sich die Schweiz in Bezug auf den Krieg in der Ukraine seit 2022?",
+        "answers": [
+            "Sie unterstützt Russland militärisch",
+            "Sie bleibt völlig neutral und trifft keine Massnahmen",
+            "Sie übernimmt EU-Sanktionen gegen Russland, liefert aber keine Waffen",
+            "Sie beteiligt sich an NATO-Einsätzen in Osteuropa"
+        ],
+        "correctAnswer": 2
+    },
+    {
+        "question": "Was bedeutet Neutralität in der Schweizer Aussenpolitik?",
+        "answers": [
+            "Die Schweiz darf keine Verträge mit anderen Staaten schliessen",
+            "Die Schweiz nimmt an militärischen Bündnissen teil, aber nur defensiv",
+            "Die Schweiz greift nie in internationale Konflikte ein, weder diplomatisch noch wirtschaftlich",
+            "Die Schweiz beteiligt sich nicht an militärischen Konflikten und liefert keine Waffen an Kriegsparteien"
+        ],
+        "correctAnswer": 3
+    }
+]

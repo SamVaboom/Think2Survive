@@ -1,0 +1,128 @@
+
+[
+        {
+            "question": "Welcher Fluss fliesst durch das Engadin?",
+            "answers": ["Rhein", "Inn", "Rhone", "Linth"],
+            "correctAnswer": 1  
+        },
+        {
+            "question": "Wie viele Kantone hat die Schweiz?",
+            "answers": ["20", "26", "22", "28"],
+            "correctAnswer": 1  
+        },
+        {
+            "question": "Welcher ist der flächenmässig grösste Kanton der Schweiz?",
+            "answers": ["Bern", "Graubünden", "Wallis", "Waadt"],
+            "correctAnswer": 1
+        },
+        {
+            "question": "Welcher Fluss fliesst durch Zürich?",
+            "answers": ["Rhone", "Aare", "Reuss", "Limmat"],
+            "correctAnswer": 3  
+        },
+        {
+            "question": "Welcher Kanton hat die grösste Einwohnerzahl?",
+            "answers": ["Bern", "Zürich", "Waadt", "Genf"],
+            "correctAnswer": 1  
+        },
+        {
+            "question": "Wie heisst der längste Fluss der Schweiz?",
+            "answers": ["Rhein", "Aare", "Rhone", "Linth"],
+            "correctAnswer": 0  
+        },
+        {
+            "question": "Welcher See wird von der Aare durchflossen?",
+            "answers": ["Thunersee", "Zürichsee", "Bodensee", "Neuenburgersee"],
+            "correctAnswer": 0  
+        },
+        {
+            "question": "Welches Land grenzt NICHT an die Schweiz?",
+            "answers": ["Frankreich", "Slowenien", "Deutschland", "Österreich"],
+            "correctAnswer": 1
+        },
+        {
+            "question": "Welcher See liegt im Kanton Thurgau?",
+            "answers": ["Lago Maggiore", "Bodensee", "Sempachersee", "Brienzersee"],
+            "correctAnswer": 1  
+        },
+        {
+            "question": "Welcher Kanton ist bekannt für das Uhrenhandwerk?",
+            "answers": ["Neuenburg", "Uri", "Glarus", "Obwalden"],
+            "correctAnswer": 0  
+        },
+        {
+            "question": "Wie heisst das einzige Fürstentum, das an die Schweiz grenzt?",
+            "answers": ["Monaco", "Liechtenstein", "Andorra", "Luxemburg"],
+            "correctAnswer": 1  
+        },
+        {
+            "question": "Welcher Fluss mündet in den Bodensee?",
+            "answers": ["Aare", "Rhone", "Rhein", "Linth"],
+            "correctAnswer": 2  
+        },
+        {
+            "question": "Wie heisst der tiefste Punkt der Schweiz (über Meeresspiegel)?",
+            "answers": ["Rhoneknie bei Genf", "Lago Maggiore bei Brissago", "Bodenseeufer bei Romanshorn", "Rhein bei Basel"],
+            "correctAnswer": 1  
+        },
+        {
+            "question": "Wie viele Gemeinden gibt es (Stand 2024) ungefähr in der Schweiz?",
+            "answers": ["Ca. 2600", "Ca. 3200", "Ca. 2100", "Ca. 1500"],
+            "correctAnswer": 2  
+        },
+        {
+            "question": "Welches ist der kleinste Kanton der Schweiz (flächenmässig)?",
+            "answers": ["Appenzell Inneroden", "Zug", "Basel-Stadt", "Appenzell Ausseroden"],
+            "correctAnswer": 2  
+        },
+        {
+            "question": "Ungefähr wie viele Einwohner hat Chur?",
+            "answers": ["41'000", "54'000", "39'000", "34'500"],
+            "correctAnswer": 0  
+        },
+        {
+            "question": "Welcher See ist flächenmässig der grösste, der vollständig in der Schweiz liegt?",
+            "answers": ["Zürichsee", "Neuenburgersee", "Bodensee", "Genfersee"],
+            "correctAnswer": 1  
+        },
+        {
+            "question": "Welcher Pass verbindet das Wallis mit dem Kanton Uri?",
+            "answers": ["Furkapass", "Nufenenpass", "Gotthardpass", "Simplonpass"],
+            "correctAnswer": 0  
+        },
+        {
+            "question": "Welche Gemeinde liegt exakt auf dem geographischen Mittelpunkt der Schweiz (nach offizieller Vermessung)?",
+            "answers": ["Entlebuch", "Älggi-Alp", "Altdorf", "Schwyz"],
+            "correctAnswer": 1  
+        },
+        {
+            "question": "Welcher dieser Orte liegt am nördlichsten Punkt der Schweiz?",
+            "answers": ["Merishausen", "Bargen", "Kreuzlingen", "Neuhausen"],
+            "correctAnswer": 1  
+        },
+        {
+            "question": "Welcher Fluss verlässt die Schweiz bei Genf und fliesst dann weiter nach Frankreich?",
+            "answers": ["Rhein", "Rhone", "Aare", "Inn"],
+            "correctAnswer": 1  
+        },
+        {
+            "question": "Welcher Pass ist der höchste ganzjährig geöffnete und vollständig in der Schweiz gelegene Strassenpass?",
+            "answers": ["Gotthardpass", "Berninapass", "Grimselpass", "Nufenenpass"],
+            "correctAnswer": 1  
+        },
+        {
+            "question": "Welches ist der höchst Strassenpass der Schweiz?",
+            "answers": ["Sustenpass", "Furkapass", "Umbrail", "Grosser St. Bernhard"],
+            "correctAnswer": 2  
+        },
+        {
+            "question": "Welcher Ort liegt am östlichsten Punkt der Schweiz?",
+            "answers": ["Scuol", "Müstair", "Davos", "Sta. Maria"],
+            "correctAnswer": 1  
+        },
+        {
+            "question": "Welcher Kanton grenzt sowohl an Italien als auch an Österreich?",
+            "answers": ["Wallis", "Tessin", "Graubünden", "Uri"],
+            "correctAnswer": 2  
+        }
+    ]

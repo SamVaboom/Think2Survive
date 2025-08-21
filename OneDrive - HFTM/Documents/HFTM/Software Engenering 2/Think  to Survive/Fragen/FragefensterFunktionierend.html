@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz mit Fragenliste</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        .question-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: 0 auto;
+            position: relative;
+            /* Für die Positionierung des Sterns */
+        }
+
+        .question-container h2 {
+            margin-bottom: 20px;
+        }
+
+        .answers {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .answers li {
+            margin: 10px 0;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        /* Fortschrittsbalken */
+        #progress-bar-container {
+            margin-top: 20px;
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            height: 20px;
+        }
+
+        #progress-bar {
+            height: 100%;
+            width: 0;
+            background-color: #4CAF50;
+            border-radius: 5px;
+        }
+
+        #question-number {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        /* Container für die Sterne nebeneinander */
+        #stars-container {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            /* Flexbox für nebeneinander */
+            flex-direction: row;
+            /* Zeilenweise anordnen */
+            align-items: center;
+        }
+
+        .star {
+            font-size: 24px;
+            color: gold;
+            margin-right: 5px;
+            /* Abstand zwischen den Sternen */
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="question-container">
+        <!-- Container für die Sterne -->
+        <div id="stars-container"></div>
+
+        <div id="question-number">Frage 1 von 5</div>
+        <h2 id="question">Loading...</h2>
+        <ul class="answers">
+            <li><input type="radio" name="answer" id="answer1" value="0"> <span id="answer1Text"></span></li>
+            <li><input type="radio" name="answer" id="answer2" value="1"> <span id="answer2Text"></span></li>
+            <li><input type="radio" name="answer" id="answer3" value="2"> <span id="answer3Text"></span></li>
+            <li><input type="radio" name="answer" id="answer4" value="3"> <span id="answer4Text"></span></li>
+        </ul>
+        <button id="checkButton" onclick="checkAnswer()">Antwort prüfen</button>
+        <div class="result" id="result"></div>
+
+        <!-- Fortschrittsbalken -->
+        <div id="progress-bar-container">
+            <div id="progress-bar"></div>
+        </div>
+    </div>
+    <script>
+        let questions = []; // Fragenarray (global)
+        let currentQuestionIndex = 0;
+        let correctAnswersCount = 0;
+
+        fetch('QuizfragenLevel2.json')
+            .then(response => response.json())
+            .then(data => {
+                questions = data;
+                shuffle(questions); // Fragen mischen
+                questions = questions.slice(0, 5); // Wähle nur die ersten 5 Fragen
+                displayQuestion();
+            })
+            .catch(error => {
+                console.error('Fehler beim Laden der Fragen:', error);
+                document.getElementById('question').textContent = 'Fragen konnten nicht geladen werden.';
+                document.getElementById('result').textContent = 'Bitte prüfen Sie, ob die Datei fragen.json vorhanden ist.';
+            });
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+
+        // Funktion, um die aktuelle Frage anzuzeigen
+        function displayQuestion() {
+            document.getElementById('checkButton').disabled = false; // ✅ Button wieder aktivieren
+
+            const question = questions[currentQuestionIndex];
+            document.getElementById('question').textContent = question.question;
+
+            for (let i = 0; i < 4; i++) {
+                document.getElementById(`answer${i + 1}`).checked = false;
+                document.getElementById(`answer${i + 1}Text`).textContent = question.answers[i];
+            }
+
+            document.getElementById('question-number').textContent =
+
+                `Frage ${currentQuestionIndex + 1} von 5`; // Fixed auf 5 Fragen
+            document.getElementById('result').textContent = '';
+
+            const progressBar = document.getElementById('progress-bar');
+            const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+            progressBar.style.width = `${progress}%`;
+        }
+
+
+        function checkAnswer() {
+            const checkButton = document.getElementById('checkButton');
+            checkButton.disabled = true; // ✅ Deaktiviere Button direkt
+
+            const answers = document.getElementsByName('answer');
+            let selectedAnswer = null;
+
+            for (let i = 0; i < answers.length; i++) {
+                if (answers[i].checked) {
+                    selectedAnswer = parseInt(answers[i].value);
+                    break;
+                }
+            }
+
+            const resultDiv = document.getElementById('result');
+            if (selectedAnswer !== null) {
+                if (selectedAnswer === questions[currentQuestionIndex].correctAnswer) {
+                    resultDiv.textContent = 'Richtig!';
+                    resultDiv.style.color = 'green';
+                    addStar();
+                    correctAnswersCount++;
+                } else {
+                    resultDiv.textContent = 'Leider falsch. Versuche es nochmal!';
+                    resultDiv.style.color = 'red';
+                }
+                setTimeout(nextQuestion, 1500);
+            } else {
+                resultDiv.textContent = 'Bitte wählen Sie eine Antwort aus!';
+                resultDiv.style.color = 'orange';
+                checkButton.disabled = false; // 🔁 Wieder aktivieren, wenn keine Antwort gewählt wurde
+            }
+        }
+
+
+        function addStar() {
+            const star = document.createElement('span');
+            star.textContent = '⭐';
+            star.classList.add('star');
+            document.getElementById('stars-container').appendChild(star);
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+
+            if (currentQuestionIndex < 5) { // Hier wird das Quiz nach der 5. Frage gestoppt
+                displayQuestion();
+            } else {
+                document.getElementById('question').textContent = 'Quiz beendet!';
+                document.getElementById('result').textContent =
+                    `Du hast ${correctAnswersCount} von 5 richtig beantwortet.`; // Fixed auf 5 Fragen
+            }
+        }
+
+    </script>
+
+
+</body>
+
+</html>
