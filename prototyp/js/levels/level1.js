@@ -60,16 +60,41 @@ function initLevel() {
 		{ x: -1000, y: world.height - 400, width: 50, height: 500, type: 'platform' },
 				
         // Duck-Passage: zum Ducken mit S
-        { x: 300, y: world.height - 275, width: 200, height: 150, type: 'platform' },
+        { x: 300, y: world.height - 310, width: 200, height: 192, type: 'platform' },
 
         // Gegner hinter Duck-Passage
-        { x: 600, y: world.height - 130, width: 30, height: 30, type: 'danger' },
+        { x: 700, y: world.height - 110, width: 704, height: 16, type: 'danger' },
 
         // Plattform zum Springen 
-        { x: 900, y: world.height - 300, width: 150, height: 20, type: 'platform' },
+        { x: 600, y: world.height - 220, width: 160, height: 32, type: 'platform' },
+
+		 // Plattform zum Springen 
+        { x: 600, y: world.height - 420, width: 160, height: 32, type: 'platform' },
+
+			 // Plattform zum Springen 
+        { x: 850, y: world.height - 520, width: 160, height: 32, type: 'platform' },
+
+		 // Plattform zum Springen 
+        { x: 1020, y: world.height - 620, width: 80, height: 32, type: 'platform' },
+
+		// Plattform zum Springen 
+        { x: 1404, y: world.height - 600, width: 80, height: 600, type: 'platform' },
+
+		// Plattform zum Springen 
+        { x: 1604, y: world.height - 1000, width: 80, height: 600, type: 'platform' },
+
+		// Plattform zum Springen 
+        { x: 1804, y: world.height - 200, width: 80, height: 600, type: 'platform' },
+
+		// Plattform zum Springen 
+        { x: 2004, y: world.height - 300, width: 80, height: 600, type: 'platform' },
+
+		// Plattform zum Springen 
+        { x: 2204, y: world.height - 400, width: 80, height: 600, type: 'platform' },
+
 
         // Zungenobjekt über Plattform
-        { x: 1150, y: world.height - 450, width: 20, height: 20, type: 'tongue' },
+        //{ x: 1150, y: world.height - 450, width: 20, height: 20, type: 'tongue' },
 
         // Catcher danach (nur mit Tarnung durch) -- mit bewegung
 		{
@@ -80,7 +105,7 @@ function initLevel() {
 			type: 'catcher',
 			moving: true, //wenn false, denn cha mes eifach wegloh und es isch okay. wenn sichs bewege söu denn muess true si
 			axis: 'x', // x oder y
-			min: 1500, //endposition links bzw oben wenn y achse
+			min: 1550, //endposition links bzw oben wenn y achse
 			max: 1700, //endposition rechts bzw unte
 			speed: 1, // desto grösser desto schneller (pixel + oder - pro zyklus)
 			direction: 1 // 1 heisst me startet nach rechts wenn x achse/ nach unte wenn y achse. mit 0 geit me nach links / ufe. Nid würk relevant (wird immer bim min und max gswitched)		
@@ -88,15 +113,15 @@ function initLevel() {
 
         // Plattform moving 
         {
-			x: 1350,
+			x: 1200,
 			y: world.height - 250,
-			width: 100,
-			height: 20,
+			width: 160,
+			height: 16,
 			type: 'platform',
 			moving: true,
 			axis: 'y',
 			min: world.height - 500, 
-			max: world.height -101, 
+			max: world.height -301, 
 			speed: 1,
 			direction: 1,
 			pauseDuration: 60 // das si ke milli-sekunde oder so. Das si frames. 60fps (frames pro sekunde) si standard. Drum 60 = 1s (öppe)
@@ -104,7 +129,7 @@ function initLevel() {
 
 
         // Checkpoint
-        { x: 1800, y: world.height - 110, width: 30, height: 10, type: 'checkpoint' },
+        { x: 1750, y: world.height - 132, width: 32, height: 32, type: 'checkpoint' },
 
         // Ziel ganz rechts
         { x: 2000, y: world.height - 130, width: 30, height: 30, type: 'goal' }
