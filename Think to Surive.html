@@ -78,7 +78,7 @@
 
   <script>
     function loadProgress() {
-      let unlocked = parseInt(localStorage.getItem("unlockedLevel")) || 1;
+      let unlocked = 5;//parseInt(localStorage.getItem("unlockedLevel")) || 1;
       for (let i = 1; i <= 5; i++) {
         let btn = document.getElementById(`level${i}Btn`);
         if (i <= unlocked) {
@@ -100,13 +100,15 @@
     }
 
     function startLevel(level) {
-      let unlocked = parseInt(localStorage.getItem("unlockedLevel")) || 1;
-      if (level > unlocked) {
-        alert("Dieses Level ist noch gesperrt.");
-        return;
-      }
-     window.location.href = src="./prototyp/hauptmenu.html";
-    }
+		  let unlocked = 5; // parseInt(localStorage.getItem("unlockedLevel")) || 1;
+		  if (level > unlocked) {
+			alert("Dieses Level ist noch gesperrt.");
+			return;
+		  }
+		  // pass the level number as query parameter
+		  window.location.href = `./prototyp/hauptmenu.html?level=${level}`;
+		}
+
 
     function unlockLevel(level) {
       let current = parseInt(localStorage.getItem("unlockedLevel")) || 1;

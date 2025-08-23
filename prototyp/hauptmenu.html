@@ -30,7 +30,17 @@
     <!-- Alli andere Skripts lade - muess me denn bim Michu oder Dani sim Skript dri tue -->
     <script src="js/player.js"></script>
     <script src="js/engine.js"></script>
-    <script src="js/levels/level1.js"></script>
+    <script>
+	  // Get level from ?level= query (default = 1)
+	  const params = new URLSearchParams(window.location.search);
+	  const level = params.get("level") || 1;
+
+	  // Dynamically load correct level script
+	  const script = document.createElement("script");
+	  script.src = `js/levels/level${level}.js`;
+	  document.body.appendChild(script);
+	</script>
+
 
     <script>
 		window.onload = () => {
