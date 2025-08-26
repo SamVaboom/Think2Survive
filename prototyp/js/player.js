@@ -200,6 +200,7 @@ function resetPlayer() {
     player.lives--;
     if (player.lives <= 0) {
         alert("Game Over");
+         window.history.back();
         player.lives = 3;
     }
     player.x = player.spawnPoint.x;
