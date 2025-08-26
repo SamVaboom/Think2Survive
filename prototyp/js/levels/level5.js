@@ -48,66 +48,81 @@ Standardmässig isch das 0 drum wenn mes nid schribt, denn gits ke delay.
 
 function initLevel() {
     // Spieler-Startposition - cha me apasse
-    player.x = 100;
+    player.x = -800;
     player.y = world.height - 130;
     player.spawnPoint = { x: player.x, y: player.y };
 
 
     levelObjects = [
-        // Boden über ganzes level
-        { x: -1000, y: world.height - 100, width: world.width + 1000, height: 100, type: 'platform' },
-		// Wand level ende
-		{ x: -1000, y: world.height - 400, width: 50, height: 500, type: 'platform' },
-				
-        // Duck-Passage: zum Ducken mit S
-        { x: 300, y: world.height - 275, width: 200, height: 150, type: 'platform' },
-
-        // Gegner hinter Duck-Passage
-        { x: 600, y: world.height - 130, width: 30, height: 30, type: 'danger' },
-
-        // Plattform zum Springen 
-        { x: 900, y: world.height - 300, width: 150, height: 20, type: 'platform' },
-
-        // Zungenobjekt über Plattform
-        { x: 1150, y: world.height - 450, width: 20, height: 20, type: 'tongue' },
-
-        // Catcher danach (nur mit Tarnung durch) -- mit bewegung
+		// Turm anfang
+		{ x: -500, y: world.height - 1000, width: 100, height: 182, type: 'platform' },
+		{ x: -500, y: world.height - 800, width: 100, height: 800, type: 'platform' },
+		{ x: -600, y: world.height - 800, width: 110, height: 30, type: 'platform' },
+		{ x: -750, y: world.height - 420, width: 15, height: 15, type: 'tongue' },
+		{ x: -910, y: world.height - 575, width: 15, height: 15, type: 'tongue' },
+		{ x: -750, y: world.height - 730, width: 15, height: 15, type: 'tongue' },
+		{ x: -910, y: world.height - 885, width: 15, height: 15, type: 'tongue' },
+		{ x: -750, y: world.height - 1000, width: 15, height: 15, type: 'tongue' },
+		
+		//Runter
+		{ x: -410, y: world.height - 800, width: 110, height: 30, type: 'platform' },
+		{ x: -410, y: world.height - 600, width: 110, height: 30, type: 'platform' },
+		{ x: -410, y: world.height - 400, width: 110, height: 30, type: 'platform' },		
+		{ x: -410, y: world.height - 200, width: 110, height: 30, type: 'platform' },
+		{ x: -300, y: world.height - 799, width: 80, height: 230, type: 'danger', moving: true, axis: 'y', min: world.height - 800, max: world.height - 330, speed: 3, direction: 1, pauseDuration: 30},					
+		{ x: -400, y: world.height - 110, width: 30, height: 10, type: 'checkpoint' },
+		// Turm 2
+		{ x: -220, y: world.height - 1000, width: 100, height: 860, type: 'platform' },
+		{ x: -220, y: world.height - 139, width: 100, height: 40, type: 'danger', moving: true, axis: 'y', min: world.height - 140, max: world.height - 99, speed: 1, direction: 1, pauseDuration: 157},
+		
+		{ x: -2000, y: world.height - 99, width: 1000, height: 100, type: 'danger' },
+        // Boden Start 
+        { x: -1000, y: world.height - 100, width: 1200, height: 100, type: 'platform' },
+		// Boden Lava lol
+		{ x: 200, y: world.height - 99, width: 5000, height: 100, type: 'danger' },
+		
+		//Gondel
 		{
-			x: 1600,
-			y: world.height - 130,
-			width: 30,
-			height: 30,
-			type: 'catcher',
-			moving: true, //wenn false, denn cha mes eifach wegloh und es isch okay. wenn sichs bewege söu denn muess true si
-			axis: 'x', // x oder y
-			min: 1500, //endposition links bzw oben wenn y achse
-			max: 1700, //endposition rechts bzw unte
-			speed: 1, // desto grösser desto schneller (pixel + oder - pro zyklus)
-			direction: 1 // 1 heisst me startet nach rechts wenn x achse/ nach unte wenn y achse. mit 0 geit me nach links / ufe. Nid würk relevant (wird immer bim min und max gswitched)		
-		},
-
-        // Plattform moving 
-        {
-			x: 1350,
-			y: world.height - 250,
-			width: 100,
+			x: 500,
+			y: world.height - 150,
+			width: 110,
 			height: 20,
 			type: 'platform',
 			moving: true,
-			axis: 'y',
-			min: world.height - 500, 
-			max: world.height -101, 
-			speed: 1,
+			axis: 'x',
+			min: 300, 
+			max: 1000, 
+			speed: 2.5,
 			direction: 1,
-			pauseDuration: 60 // das si ke milli-sekunde oder so. Das si frames. 60fps (frames pro sekunde) si standard. Drum 60 = 1s (öppe)
+			pauseDuration: 30 
 		},
-
-
-        // Checkpoint
-        { x: 1800, y: world.height - 110, width: 30, height: 10, type: 'checkpoint' },
-
-        // Ziel ganz rechts
-        { x: 2000, y: world.height - 130, width: 30, height: 30, type: 'goal' }
+		
+		// Jump & Run über lava
+		{ x: 400, y: world.height - 180, width: 30, height: 30, type: 'danger' },
+		{ x: 700, y: world.height - 180, width: 30, height: 30, type: 'danger' },
+		{ x: 1150, y: world.height - 200, width: 80, height: 30, type: 'platform' },
+		{ x: 1350, y: world.height - 250, width: 80, height: 30, type: 'platform' },
+		{ x: 1525, y: world.height - 300, width: 80, height: 30, type: 'platform' },
+		{ x: 1545, y: world.height - 309, width: 40, height: 29, type: 'danger', moving: true, axis: 'y', min: world.height - 329, max: world.height - 299, speed: 1.5, direction: 1, pauseDuration: 60},		
+		{ x: 1725, y: world.height - 300, width: 50, height: 30, type: 'platform' },
+		{ x: 2000, y: world.height - 135, width: 50, height: 30, type: 'platform' },
+		{ x: 2200, y: world.height - 175, width: 80, height: 30, type: 'platform' },
+		{ x: 2300, y: world.height - 135, width: 50, height: 30, type: 'platform', moving: true, axis: 'y', min: world.height - 800, max: world.height - 135, speed: 1, direction: 1, pauseDuration: 60},
+		{ x: 2550, y: world.height - 135, width: 50, height: 30, type: 'platform', moving: true, axis: 'y', min: world.height - 800, max: world.height - 135, speed: 1, direction: 1, pauseDuration: 60 },		
+		{ x: 2300, y: world.height - 350, width: 50, height: 100, type: 'danger' },
+		{ x: 2550, y: world.height - 600, width: 50, height: 100, type: 'danger' },
+		{ x: 2300, y: world.height - 850, width: 50, height: 100, type: 'danger' },
+		
+		//Drop und Pattform		
+		{ x: 2700, y: world.height - 850, width: 200, height: 850, type: 'platform' },
+		{ x: 2750, y: world.height - 860, width: 30, height: 10, type: 'checkpoint' },	
+		{ x: 2900, y: world.height - 849, width: 205, height: 498, type: 'catcher' },	
+		{ x: 3100, y: world.height - 1000, width: 50, height: 650, type: 'platform' },
+		{ x: 2890, y: world.height - 105, width: 500, height: 105, type: 'platform' },
+	
+		// Turm 3
+		
+		
     ];
 }
 
