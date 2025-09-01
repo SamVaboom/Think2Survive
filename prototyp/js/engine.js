@@ -1,43 +1,50 @@
 let canvas, ctx;
 let keys = {};
 let prevKeys = {};
-let levelObjects = []; // Wird später durch level1.js gefüllt
+let levelObjects = []; // Wird durch levelX.js gefüllt (z.B. initLevel)
 let camera = { x: 0, y: 0 };
-const world = {
-    width: 6000,
-    height: 2500
-};
+const world = { width: 6000, height: 2500 };
 
-const camBox = {
-    xMargin: 0,
-    yMargin: 0
-};
+const camBox = { xMargin: 0, yMargin: 0 };
 
 function initGame() {
-    canvas = document.getElementById("gameCanvas"); //canvas hole
+    canvas = document.getElementById("gameCanvas");
     ctx = canvas.getContext("2d");
 
     resizeCanvas();
-    window.addEventListener("resize", resizeCanvas); // spiu-feld wird de grössi vom Bildschirm apasst
+    window.addEventListener("resize", resizeCanvas);
 
-    window.addEventListener("keydown", (e) => { //wenn e drückt wird denn tarnig (SetReset system)
+    window.addEventListener("keydown", (e) => {
         keys[e.key] = true;
         if (e.key === 'e') toggleCamouflage();
     });
     window.addEventListener("keyup", (e) => keys[e.key] = false);
 
-    initLevel();
+    // Falls Quiz Leben gesetzt hat, übernehmen
+    if (typeof window.playerLives !== 'undefined') {
+        player.lives = window.playerLives;
+        console.log('[Engine] player.lives gesetzt von Quiz:', player.lives);
+    }
 
+    // Fallback: falls level-Init-Funktion vorhanden ist, aufrufen.
+    try {
+        if (typeof initLevel === 'function') initLevel();
+        else console.warn('[Engine] initLevel() nicht definiert. Stelle sicher, levelX.js ist geladen.');
+    } catch (e) {
+        console.error('[Engine] Fehler beim initLevel():', e);
+    }
 
+    // Canvas anzeigen (das Quiz versteckt Canvas zuvor)
+    canvas.style.display = 'block';
 
     requestAnimationFrame(gameLoop);
 }
 
-function resizeCanvas() {  // wenn me sich nach links und rechts bewegt denn chunnt "Kamera" mit chli delay mit
+function resizeCanvas() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-    camBox.xMargin = canvas.width * 0.49; //cha maximal 0.49 si - >= 0.5 und es geit kaputt
-    camBox.yMargin = canvas.height * 0.1; // aktivierbar bei vertikalem Scrollen - zurzit nur rechts-links
+    camBox.xMargin = canvas.width * 0.49;
+    camBox.yMargin = canvas.height * 0.1;
 }
 
 function gameLoop() {
@@ -49,60 +56,42 @@ function gameLoop() {
 function update() {
     updatePlayer(keys, prevKeys);
 
-    // Kamera folgt Spieler mit Soft-Zone
+    // Kamera
     const playerCenterX = player.x + player.width / 2;
     const camLeft = camera.x + camBox.xMargin;
     const camRight = camera.x + canvas.width - camBox.xMargin;
 
-    if (playerCenterX < camLeft) {
-        camera.x = playerCenterX - camBox.xMargin;
-    } else if (playerCenterX > camRight) {
-        camera.x = playerCenterX - (canvas.width - camBox.xMargin);
-    }
+    if (playerCenterX < camLeft) camera.x = playerCenterX - camBox.xMargin;
+    else if (playerCenterX > camRight) camera.x = playerCenterX - (canvas.width - camBox.xMargin);
 
     const playerCenterY = player.y + player.height / 2;
     const camTop = camera.y + camBox.yMargin;
     const camBottom = camera.y + canvas.height - camBox.yMargin;
 
-    if (playerCenterY < camTop) {
-        camera.y = playerCenterY - camBox.yMargin;
-    } else if (playerCenterY > camBottom) {
-        camera.y = playerCenterY - (canvas.height - camBox.yMargin);
-    }
+    if (playerCenterY < camTop) camera.y = playerCenterY - camBox.yMargin;
+    else if (playerCenterY > camBottom) camera.y = playerCenterY - (canvas.height - camBox.yMargin);
 
-	// --- Bewegliche Objekte aktualisieren ---
-	levelObjects.forEach(obj => {
-		if (obj.moving) {
-			if (!obj.pauseTimer || obj.pauseTimer <= 0) {
-				if (obj.axis === 'x') obj.x += obj.direction * obj.speed;
-				else if (obj.axis === 'y') obj.y += obj.direction * obj.speed;
+    // Bewegliche Objekte
+    levelObjects.forEach(obj => {
+        if (obj.moving) {
+            if (!obj.pauseTimer || obj.pauseTimer <= 0) {
+                if (obj.axis === 'x') obj.x += obj.direction * obj.speed;
+                else if (obj.axis === 'y') obj.y += obj.direction * obj.speed;
 
-				const pos = obj.axis === 'x' ? obj.x : obj.y;
+                const pos = obj.axis === 'x' ? obj.x : obj.y;
+                if (pos < obj.min || pos > obj.max) {
+                    obj.direction *= -1;
+                    if (pos < obj.min) { if (obj.axis === 'x') obj.x = obj.min; else obj.y = obj.min; }
+                    if (pos > obj.max) { if (obj.axis === 'x') obj.x = obj.max; else obj.y = obj.max; }
+                    obj.pauseTimer = obj.pauseDuration || 0;
+                }
+            } else {
+                obj.pauseTimer--;
+            }
+        }
+    });
 
-				if (pos < obj.min || pos > obj.max) {
-					// Richtung umkehren
-					obj.direction *= -1;
-
-					// zurück innerhalb der Grenzen setzen
-					if (pos < obj.min) {
-						if (obj.axis === 'x') obj.x = obj.min;
-						else obj.y = obj.min;
-					}
-					if (pos > obj.max) {
-						if (obj.axis === 'x') obj.x = obj.max;
-						else obj.y = obj.max;
-					}
-
-					// Pause setzen (wenn definiert)
-					obj.pauseTimer = obj.pauseDuration || 0;
-				}
-			} else {
-				obj.pauseTimer--;
-			}
-		}
-	});
-
-    // Plattform-Kollision damit Player kollision het
+    // Plattform-Kollision
     player.onGround = false;
     levelObjects.forEach(obj => {
         if (obj.type === "platform" && collides(player, obj)) {
@@ -115,25 +104,18 @@ function update() {
             const fixY = Math.min(overlapY1, overlapY2);
 
             if (fixX < fixY) {
-                if (overlapX1 < overlapX2) {
-                    player.x -= overlapX1;
-                } else {
-                    player.x += overlapX2;
-                }
+                if (overlapX1 < overlapX2) player.x -= overlapX1;
+                else player.x += overlapX2;
                 player.dx = 0;
             } else {
-                if (overlapY1 < overlapY2) {
-                    player.y -= overlapY1;
-                    player.onGround = true;
-                } else {
-                    player.y += overlapY2;
-                }
+                if (overlapY1 < overlapY2) { player.y -= overlapY1; player.onGround = true; }
+                else player.y += overlapY2;
                 player.dy = 0;
             }
         }
     });
 
-    // Tuet luege ob es Zunge-Objekt ir nöchi isch wo de Spieler sich hänezieh cha
+    // Tongue & Collision Handling
     levelObjects.forEach(obj => {
         if (obj.type === 'tongue') {
             const dx = player.x + player.width / 2 - (obj.x + obj.width / 2);
@@ -155,7 +137,7 @@ function update() {
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Bi jedem Frame wird s'ganze level neu zeichnet (Objekt)
+    // Objekte zeichnen
     levelObjects.forEach(obj => {
         const screenX = obj.x - camera.x;
         const screenY = obj.y - camera.y;
@@ -165,24 +147,29 @@ function draw() {
 
         if (obj.type === 'tongue') {
             ctx.beginPath();
-            ctx.arc(
-                obj.x + obj.width / 2 - camera.x,
-                obj.y + obj.height / 2 - camera.y,
-                200, 0, Math.PI * 2
-            );
+            ctx.arc(obj.x + obj.width / 2 - camera.x, obj.y + obj.height / 2 - camera.y, 200, 0, Math.PI * 2);
             ctx.strokeStyle = 'rgba(0,255,0,0.2)';
             ctx.stroke();
         }
     });
 
+    // Spieler zeichnen
     drawPlayer(ctx);
 
-    ctx.fillStyle = 'black';
-    ctx.font = '20px Arial';
-    ctx.fillText("Lives: " + player.lives, 10, 20);
+    // Leben als Herzen im Canvas (links oben)
+    const heartSize = 22;
+    const gap = 8;
+    const startX = 12;
+    const startY = 28;
+    ctx.font = `${heartSize}px Arial`;
+    ctx.textBaseline = 'middle';
+    ctx.fillStyle = 'red';
+    for (let i = 0; i < player.lives; i++) {
+        ctx.fillText('❤', startX + i * (heartSize + gap), startY);
+    }
 }
 
-// Die richtig Funktion wird ufgruefe, je nach dem weles Objekt berüehrt wird
+// Collision handling
 function handleCollision(obj) {
     switch (obj.type) {
         case "danger":
@@ -201,7 +188,6 @@ function handleCollision(obj) {
     }
 }
 
-//definiert Kollision
 function collides(a, b) {
     return a.x < b.x + b.width &&
            a.x + a.width > b.x &&
@@ -209,7 +195,6 @@ function collides(a, b) {
            a.y + a.height > b.y;
 }
 
-// farb vo de verschidene Objekt wird definiert. Cha me später no ersetze
 function getColorByType(type) {
     switch (type) {
         case 'platform': return 'grey';
@@ -221,3 +206,33 @@ function getColorByType(type) {
         default: return 'black';
     }
 }
+
+/* ---------------------------------------------------------
+   maybeStartGame: Wird aufgerufen, wenn das Quiz fertig ist.
+   Wir warten hier zusätzlich, bis das Levelscript geladen wurde.
+   Das Index-HTML setzt window.quizFinished und window.levelReady.
+   --------------------------------------------------------- */
+function maybeStartGame() {
+    // Wenn Quiz noch nicht fertig -> warten
+    if (!window.quizFinished) return;
+
+    // Wenn Level noch nicht geladen -> warten
+    if (!window.levelReady) {
+        // Polling (kurz) bis Level geladen ist
+        const interval = setInterval(() => {
+            if (window.levelReady) {
+                clearInterval(interval);
+                // Starten
+                initGame();
+            }
+        }, 200);
+        // ansonsten return – wir starten später
+        return;
+    }
+
+    // Wenn alles ready -> direkt starten
+    initGame();
+}
+
+// Export in global scope (optional, schon global wenn engine.js geladen wird)
+window.maybeStartGame = maybeStartGame;
