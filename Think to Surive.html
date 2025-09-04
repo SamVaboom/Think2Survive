@@ -7,6 +7,12 @@
     body {
       font-family: Arial, sans-serif;
       background-color: #f0f4f7;
+      background-image: url('hintergrund.png');
+      background-size: cover;       /* füllt den Bildschirm proportional */
+      background-repeat: no-repeat; /* kein Kacheln */
+      background-position: center;  /* mittig ausrichten */
+      margin: 0;
+      height: 120vh;                /* volle Höhe nutzen */
       text-align: center;
       padding: 50px;
     }
@@ -56,8 +62,7 @@
 </head>
 <body>
 
-  <h1>Think to Survive</h1>
-  <p>Wissen, Reaktion und Mut – schaffe alle Levels und besiege den Yeti!</p>
+  
 
  
   <button id="level1Btn" class="active" onclick="startLevel(1)">Level 1: Zoo</button>
