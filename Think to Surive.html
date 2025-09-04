@@ -8,82 +8,167 @@
       font-family: Arial, sans-serif;
       background-color: #f0f4f7;
       background-image: url('prototyp/Images/hintergrund.png');
-      background-size: cover;       /* füllt den Bildschirm proportional */
-      background-repeat: no-repeat; /* kein Kacheln */
-      background-position: center;  /* mittig ausrichten */
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
       margin: 0;
-      height: 120vh;                /* volle Höhe nutzen */
+      height: 120vh;
       text-align: center;
       padding: 50px;
     }
+
     h1 {
       font-size: 2.5em;
       margin-bottom: 10px;
     }
+
     p {
       font-size: 1.1em;
       margin-bottom: 20px;
     }
-    button {
-      display: block;
+
+    .levelRow {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       margin: 10px auto;
+      width: 350px;
+    }
+
+    .levelRow button {
+      flex: 2;
       padding: 12px 24px;
       font-size: 1em;
       border: none;
       border-radius: 5px;
       cursor: pointer;
-      width: 240px;
+      margin-right: 10px;
     }
+
+    .scoreBox {
+      flex: 1;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 6px;
+      font-size: 0.9em;
+      text-align: center;
+    }
+
     .active {
-      background-color: #007ACC;
+      background-color: #cc6600;
       color: white;
     }
+
     .active:hover {
-      background-color: #005fa3;
+      background-color: #ac4801;
     }
+
     .locked {
       background-color: #ccc;
       color: #666;
       cursor: not-allowed;
     }
-    #infoBox {
-      margin-top: 20px;
-      padding: 15px;
-      background-color: #fff;
-      border: 1px solid #ccc;
+    .greenBtn {
+    background-color: #05621a; /* Grün */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 18px;
+    cursor: pointer;
+    font-size: 1em;
+    margin: 5px;
+  }
+
+  .greenBtn:hover {
+    background-color: #034612; /* dunkleres Grün beim Hover */
+  }
+
+    #popup {
       display: none;
+      position: fixed;
+      top: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60%;
+      max-width: 600px;
+      background: #fff;
+      border: 2px solid #007ACC;
+      border-radius: 10px;
+      padding: 20px;
+      z-index: 1000;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+      text-align: left;
     }
-    #highscoreBox {
-      margin-top: 30px;
-      font-weight: bold;
-      color: #333;
+
+    #popup h2 {
+      margin-top: 0;
+    }
+
+    #popup button {
+      margin-top: 15px;
+      background-color: #007ACC;
+      color: white;
     }
   </style>
 </head>
 <body>
 
   
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+  <!-- Level Buttons mit Highscore -->
+  <div class="levelRow">
+    <button id="level1Btn" class="active" onclick="startLevel(1)">Level 1: Zoo</button>
+    <div class="scoreBox" id="score1">--</div>
+  </div>
 
- 
-  <button id="level1Btn" class="active" onclick="startLevel(1)">Level 1: Zoo</button>
-  <button id="level2Btn" class="locked" onclick="startLevel(2)">Level 2: Dorf</button>
-  <button id="level3Btn" class="locked" onclick="startLevel(3)">Level 3: Wald</button>
-  <button id="level4Btn" class="locked" onclick="startLevel(4)">Level 4: Canyon</button>
-  <button id="level5Btn" class="locked" onclick="startLevel(5)">Level 5: Matterhorn</button>
+  <div class="levelRow">
+    <button id="level2Btn" class="locked" onclick="startLevel(2)">Level 2: Dorf</button>
+    <div class="scoreBox" id="score2">--</div>
+  </div>
 
-  <hr style="margin: 40px 0;">
+  <div class="levelRow">
+    <button id="level3Btn" class="locked" onclick="startLevel(3)">Level 3: Wald</button>
+    <div class="scoreBox" id="score3">--</div>
+  </div>
 
-  <button onclick="showInstructions()">Anleitung</button>
-  <button onclick="showAbout()">Über das Spiel</button>
-  <button onclick="resetProgress()">Fortschritt zurücksetzen</button>
-  <button onclick="resetHighscore()">Highscore zurücksetzen</button>
+  <div class="levelRow">
+    <button id="level4Btn" class="locked" onclick="startLevel(4)">Level 4: Canyon</button>
+    <div class="scoreBox" id="score4">--</div>
+  </div>
 
-  <div id="highscoreBox"></div>
-  <div id="infoBox"></div>
+  <div class="levelRow">
+    <button id="level5Btn" class="locked" onclick="startLevel(5)">Level 5: Matterhorn</button>
+    <div class="scoreBox" id="score5">--</div>
+  </div>
+
+  
+
+  <button class="greenBtn" onclick="showPopup('Anleitung', `
+    - Beantworte Fragen pro Level für Leben<br>
+    - Weiche Hindernissen aus<br>
+    - Besiege im letzten Level den Endboss<br>
+    - Je schneller du alles schaffst, desto besser dein Highscore!
+  `)">Anleitung</button>
+
+  <button class="greenBtn" onclick="showPopup('Über das Spiel', `
+    Think to Survive kombiniert Quizwissen mit Action!<br>
+    Ein Lernspiel voller Spannung – und ein Ziel: Überlebe klug.
+  `)">Über das Spiel</button>
+
+  <button class="greenBtn" onclick="resetProgress()">Fortschritt zurücksetzen</button>
+  <button class="greenBtn" onclick="resetHighscore()">Highscore zurücksetzen</button>
+
+  <!-- Popup -->
+  <div id="popup">
+    <h2 id="popupTitle"></h2>
+    <p id="popupContent"></p>
+    <button onclick="closePopup()">Schließen</button>
+  </div>
 
   <script>
     function loadProgress() {
-      let unlocked = 5;//parseInt(localStorage.getItem("unlockedLevel")) || 1;
+      let unlocked = 5; // Test: alle Level frei
       for (let i = 1; i <= 5; i++) {
         let btn = document.getElementById(`level${i}Btn`);
         if (i <= unlocked) {
@@ -93,27 +178,26 @@
           btn.classList.remove("active");
           btn.classList.add("locked");
         }
-      }
 
-      let bestTime = localStorage.getItem("bestTime");
-      let box = document.getElementById("highscoreBox");
-      if (bestTime) {
-        box.innerHTML = `🏆 <strong>Beste Zeit:</strong> ${bestTime} Sekunden`;
-      } else {
-        box.innerHTML = `🏆 Noch kein Highscore erzielt`;
+        // Highscores laden
+        let time = localStorage.getItem("bestTime" + i);
+        let scoreBox = document.getElementById("score" + i);
+        if (time) {
+          scoreBox.textContent = time + "s";
+        } else {
+          scoreBox.textContent = "--";
+        }
       }
     }
 
     function startLevel(level) {
-		  let unlocked = 5; // parseInt(localStorage.getItem("unlockedLevel")) || 1;
-		  if (level > unlocked) {
-			alert("Dieses Level ist noch gesperrt.");
-			return;
-		  }
-		  // pass the level number as query parameter
-		  window.location.href = `./prototyp/main.html?level=${level}`;
-		}
-
+      let unlocked = 5;
+      if (level > unlocked) {
+        alert("Dieses Level ist noch gesperrt.");
+        return;
+      }
+      window.location.href = `./prototyp/main.html?level=${level}`;
+    }
 
     function unlockLevel(level) {
       let current = parseInt(localStorage.getItem("unlockedLevel")) || 1;
@@ -122,11 +206,11 @@
       }
     }
 
-    function updateHighscore(seconds) {
-      const best = parseFloat(localStorage.getItem("bestTime"));
+    function updateHighscore(level, seconds) {
+      const best = parseFloat(localStorage.getItem("bestTime" + level));
       if (!best || seconds < best) {
-        localStorage.setItem("bestTime", seconds.toFixed(2));
-        alert(`🎉 Neuer Highscore: ${seconds.toFixed(2)} Sekunden!`);
+        localStorage.setItem("bestTime" + level, seconds.toFixed(2));
+        alert(`🎉 Neuer Highscore in Level ${level}: ${seconds.toFixed(2)} Sekunden!`);
         loadProgress();
       }
     }
@@ -141,35 +225,24 @@
 
     function resetHighscore() {
       if (confirm("Highscore wirklich löschen?")) {
-        localStorage.removeItem("bestTime");
+        for (let i = 1; i <= 5; i++) {
+          localStorage.removeItem("bestTime" + i);
+        }
         loadProgress();
-        alert("Highscore gelöscht.");
+        alert("Highscores gelöscht.");
       }
     }
 
-    function showInstructions() {
-      displayInfo("Anleitung", `
-        - Beantworte Fragen pro Level für Leben\n
-        - Weiche Hindernissen aus\n
-        - Besiege im letzten Level den Endboss\n
-        - Je schneller du alles schaffst, desto besser dein Highscore!
-      `);
+    function showPopup(title, content) {
+      document.getElementById("popupTitle").innerHTML = title;
+      document.getElementById("popupContent").innerHTML = content;
+      document.getElementById("popup").style.display = "block";
     }
 
-    function showAbout() {
-      displayInfo("Über das Spiel", `
-        Think to Survive kombiniert Quizwissen mit Action!\n
-        Ein Lernspiel voller Spannung – und ein Ziel: Überlebe klug.
-      `);
+    function closePopup() {
+      document.getElementById("popup").style.display = "none";
     }
 
-    function displayInfo(title, content) {
-      const box = document.getElementById("infoBox");
-      box.style.display = "block";
-      box.innerHTML = "<h2>" + title + "</h2><p>" + content.replace(/\n/g, "<br>") + "</p>";
-    }
-
-    // Start
     loadProgress();
   </script>
 
