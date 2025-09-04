@@ -2,6 +2,8 @@ let canvas, ctx;
 let keys = {};
 let prevKeys = {};
 let levelObjects = []; // Wird durch levelX.js gefüllt (z.B. initLevel)
+const dangerImage = new Image();             
+dangerImage.src = 'Images/Bild2-Photoroom.png'; // Pfad zu deinem Bild Spinnennetz
 let camera = { x: 0, y: 0 };
 const world = { width: 6000, height: 2500 };
 
@@ -142,8 +144,50 @@ function draw() {
         const screenX = obj.x - camera.x;
         const screenY = obj.y - camera.y;
 
-        ctx.fillStyle = getColorByType(obj.type);
-        ctx.fillRect(screenX, screenY, obj.width, obj.height);
+        //ctx.fillStyle = getColorByType(obj.type);
+        //ctx.fillRect(screenX, screenY, obj.width, obj.height);
+        /*
+        if (obj.type === 'danger') {
+            ctx.drawImage(dangerImage, screenX, screenY, obj.width, obj.height);
+            } else {
+                ctx.fillStyle = getColorByType(obj.type);
+                ctx.fillRect(screenX, screenY, obj.width, obj.height);
+        }
+        */
+       
+        if (obj.type === 'danger' && dangerImage.complete) {
+        const tileW = dangerImage.width;
+        const tileH = dangerImage.height;
+        const fullTilesX = Math.floor(obj.width / tileW);
+        const fullTilesY = Math.floor(obj.height / tileH);
+        const remainderX = obj.width % tileW;
+        const remainderY = obj.height % tileH;
+        for (let i = 0; i <= fullTilesX; i++) {
+            for (let j = 0; j <= fullTilesY; j++) {
+                // Berechne aktuelle Position
+                const x = screenX + i * tileW;
+                const y = screenY + j * tileH;
+                // Letzte Spalte?
+                const isLastCol = i === fullTilesX;
+                // Letzte Zeile?
+                const isLastRow = j === fullTilesY;
+                // Breite/Höhe setzen
+                const drawW = isLastCol ? remainderX || tileW : tileW;
+                const drawH = isLastRow ? remainderY || tileH : tileH;
+                // Nur zeichnen, wenn innerhalb des Bereichs
+                if (x - screenX < obj.width && y - screenY < obj.height) {
+                    ctx.drawImage(
+                        dangerImage,
+                        0, 0, tileW, tileH,    // Quelle
+                        x, y, drawW, drawH      // Ziel (skaliert evtl.)
+                    );
+                }
+            }
+        }
+        } else {
+            ctx.fillStyle = getColorByType(obj.type);
+            ctx.fillRect(screenX, screenY, obj.width, obj.height);
+        }
 
         if (obj.type === 'tongue') {
             ctx.beginPath();
