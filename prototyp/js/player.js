@@ -27,7 +27,7 @@ const player = {
     sprite: {
         img: (() => {
             const im = new Image();
-            im.src = 'Images/NewChameleon.png';
+            im.src = 'Images/Chameleon_green.png'; // Standardfarbe = grün
             return im;
         })(),
         rows: 3,
@@ -38,6 +38,12 @@ const player = {
         timer: 0,
         fps: 8,
         facing: 1
+    },
+
+    // Farbe ändern
+    setColor(newColor) {
+        this.color = newColor;
+        this.sprite.img.src = `Images/chameleon_${newColor}.png`;
     }
 };
 

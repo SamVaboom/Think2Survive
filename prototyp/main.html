@@ -54,9 +54,42 @@
     #progress-bar { height:100%; width:0; background:#4CAF50; }
 
     #stars-container { position:absolute; top:10px; right:10px; display:flex; gap:6px; }
+
+    #color-buttons {
+    position: absolute;
+    top: 10px;      /* Abstand vom oberen Rand */
+    right: 10px;    /* Abstand vom rechten Rand */
+    display: flex;
+    gap: 8px;       /* Abstand zwischen den Buttons */
+    z-index: 100;   /* über allem anderen */
+    background: transparent; /* kein Hintergrund */
+    padding: 0;
+    display: none; /* Standardmäßig versteckt */
+}
+
+#color-buttons button.colorBtn {
+    width: 30px;
+    height: 30px;
+    border: 2px solid #ffffff; /* optional: damit sie sichtbar bleiben */
+    border-radius: 6px;
+    cursor: pointer;
+    
+}
+
+
+
     </style>
 </head>
 <body>
+
+
+
+<div id="color-buttons">
+  <button class="colorBtn" onclick="player.setColor('green')" style="background-color: green;"></button>
+  <button class="colorBtn" onclick="player.setColor('red')" style="background-color: red;"></button>
+  <button class="colorBtn" onclick="player.setColor('purple')" style="background-color: rgb(183, 0, 255);"></button>
+  <button class="colorBtn" onclick="player.setColor('yellow')" style="background-color: rgb(255, 225, 0);"></button>
+</div>
 
 <div id="gameExplanation">
     <h1>Willkommen bei Think to Survive</h1>
@@ -106,6 +139,8 @@ window.levelReady = false;
     script.onload = () => { window.levelReady = true; console.log('[Index] Levelscript geladen:', script.src); };
     script.onerror = () => { console.warn('[Index] Levelscript konnte nicht geladen werden:', script.src); };
     document.body.appendChild(script);
+    
+
 })();
 
 /* -----------------------
@@ -374,7 +409,10 @@ function finishQuiz(){
     const canvas = document.getElementById('gameCanvas');
     canvas.style.display = 'block';
 
+    document.getElementById('color-buttons').style.display = 'flex'; 
+
     if (typeof maybeStartGame === 'function') maybeStartGame();
+
 }
 
 window.addEventListener('load', displayQuestion);
