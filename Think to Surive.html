@@ -70,19 +70,19 @@
       cursor: not-allowed;
     }
     .greenBtn {
-    background-color: #05621a; /* Grün */
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 18px;
-    cursor: pointer;
-    font-size: 1em;
-    margin: 5px;
-  }
+      background-color: #05621a; /* Grün */
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 18px;
+      cursor: pointer;
+      font-size: 1em;
+      margin: 5px;
+    }
 
-  .greenBtn:hover {
-    background-color: #034612; /* dunkleres Grün beim Hover */
-  }
+    .greenBtn:hover {
+      background-color: #034612; /* dunkleres Grün beim Hover */
+    }
 
     #popup {
       display: none;
@@ -110,12 +110,13 @@
       background-color: #007ACC;
       color: white;
     }
+	
   </style>
 </head>
 <body>
 
-  
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
   <!-- Level Buttons mit Highscore -->
   <div class="levelRow">
     <button id="level1Btn" class="active" onclick="startLevel(1)">Level 1: Zoo</button>
@@ -142,8 +143,6 @@
     <div class="scoreBox" id="score5">--</div>
   </div>
 
-  
-
   <button class="greenBtn" onclick="showPopup('Anleitung', `
     - Beantworte Fragen pro Level für Leben<br>
     - Weiche Hindernissen aus<br>
@@ -165,6 +164,9 @@
     <p id="popupContent"></p>
     <button onclick="closePopup()">Schließen</button>
   </div>
+
+  <!-- NEW: sound manager -->
+  <script src="prototyp/js/sound.js"></script>
 
   <script>
     function loadProgress() {
@@ -196,6 +198,8 @@
         alert("Dieses Level ist noch gesperrt.");
         return;
       }
+      // NEW: click sound on navigation
+      sound?.uiClick();
       window.location.href = `./prototyp/main.html?level=${level}`;
     }
 
@@ -220,6 +224,7 @@
         localStorage.setItem("unlockedLevel", 1);
         loadProgress();
         alert("Fortschritt zurückgesetzt.");
+        sound?.uiClick(); // NEW
       }
     }
 
@@ -230,6 +235,7 @@
         }
         loadProgress();
         alert("Highscores gelöscht.");
+        sound?.uiClick(); // NEW
       }
     }
 
@@ -237,102 +243,27 @@
       document.getElementById("popupTitle").innerHTML = title;
       document.getElementById("popupContent").innerHTML = content;
       document.getElementById("popup").style.display = "block";
+      sound?.uiClick(); // NEW
     }
 
     function closePopup() {
       document.getElementById("popup").style.display = "none";
+      sound?.uiClick(); // NEW
     }
+
+    // NEW: unlock audio + start music on first gesture and add UI clicks for all buttons
+    window.addEventListener('pointerdown', function once() {
+      sound?.playMusic();
+      window.removeEventListener('pointerdown', once);
+    });
+    window.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('button').forEach(btn => {
+        btn.addEventListener('click', () => sound?.uiClick());
+      });
+    });
 
     loadProgress();
   </script>
-
-<!DOCTYPE html>
-<html lang="de">
-<head>
-  <meta charset="UTF-8">
-  <title>Think to Survive – Hauptmenü</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f0f4f7;
-      background-image: url('prototyp/Images/hintergrund.png');
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: center;
-      margin: 0;
-      height: 120vh;
-      text-align: center;
-      padding: 50px;
-    }
-
-    h1 {
-      font-size: 2.5em;
-      margin-bottom: 10px;
-    }
-
-    p {
-      font-size: 1.1em;
-      margin-bottom: 20px;
-    }
-
-    .levelRow {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 10px auto;
-      width: 350px;
-    }
-
-    .levelRow button {
-      flex: 2;
-      padding: 12px 24px;
-      font-size: 1em;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      margin-right: 10px;
-    }
-
-    .scoreBox {
-      flex: 1;
-      background-color: #fff;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      padding: 6px;
-      font-size: 0.9em;
-      text-align: center;
-    }
-
-    .active {
-      background-color: #cc6600;
-      color: white;
-    }
-
-    .active:hover {
-      background-color: #ac4801;
-    }
-
-    .locked {
-      background-color: #ccc;
-      color: #666;
-      cursor: not-allowed;
-    }
-
-    .greenBtn {
-      background-color: #05621a;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      padding: 10px 18px;
-      cursor: pointer;
-    }
-
-    .greenBtn:hover {
-      background-color: #034d13;
-    }
-  </style>
-</head>
-<body>
 
 </body>
 </html>

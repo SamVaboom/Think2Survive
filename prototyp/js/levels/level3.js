@@ -117,7 +117,15 @@ function initLevel() {
 }
 
 */
+window.LEVEL_THEME = 'forest';
+
+
+
+
+
 function initLevel() {
+
+applyLevelBackground();
     player.x = 100;
     player.y = world.height - 130;
     player.spawnPoint = { x: player.x, y: player.y };

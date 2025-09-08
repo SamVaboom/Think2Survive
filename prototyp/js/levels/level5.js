@@ -45,9 +45,11 @@ pauseDuration (biispiu unte)
 
 Standardmässig isch das 0 drum wenn mes nid schribt, denn gits ke delay. 
 */
+window.LEVEL_THEME = 'matterhorn';
 
 function initLevel() {
-    // Spieler-Startposition - cha me apasse
+
+applyLevelBackground();// Spieler-Startposition - cha me apasse
     player.x = -800;
     player.y = world.height - 130;
     player.spawnPoint = { x: player.x, y: player.y };

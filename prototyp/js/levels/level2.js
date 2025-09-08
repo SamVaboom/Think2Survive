@@ -46,7 +46,15 @@ pauseDuration (biispiu unte)
 Standardmässig isch das 0 drum wenn mes nid schribt, denn gits ke delay. 
 */
 
+window.LEVEL_THEME = 'village';
+
+
+
+
+
 function initLevel() {
+
+applyLevelBackground();	
     // Spieler-Startposition - cha me apasse
     player.x = -900;
     player.y = world.height - 130;

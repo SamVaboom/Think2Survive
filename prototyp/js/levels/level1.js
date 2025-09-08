@@ -1,4 +1,5 @@
 
+
 /*
 ERKLÄRUNG KOORDINATENSYSTEM:
 Level isch 6000 * 2500 px gross. Es isch möglich Objekt usserhalb vo däm z'platziere.
@@ -48,7 +49,7 @@ Standardmässig isch das 0 drum wenn mes nid schribt, denn gits ke delay.
 */
 
 // Array of messages with colors and vertical positions
-/*const messages = [
+const messages = [
 	{ text: "Move left and richt with (A) and (D)", top: 50, color: "#ffffffff" },    // white
 	{ text: "Jump wiht (W) or (space)", top: 100, color: "#ffffffff" },    // white
 	{ text: "Duck with (S)", top: 150, color: "#ffffffff" },    // white
@@ -57,7 +58,7 @@ Standardmässig isch das 0 drum wenn mes nid schribt, denn gits ke delay.
   { text: "Doublejump with (space)", top: 300, color: "#10ce3fff" },   // green
   { text: "Checkpoints are blue", top: 350, color: "#2980b9" },    // blue
   { text: "Finish is gold", top: 400, color: "#f1c40f" }   // yellow
-];*/
+];
 
 // Loop through each message and add it to the page
 messages.forEach(msg => {
@@ -79,10 +80,18 @@ messages.forEach(msg => {
   document.body.appendChild(box);
 });
 
+// top of file
+window.LEVEL_THEME = 'zoo';
+
+
 
 
 
 function initLevel() {
+// inside initLevel(), first line
+applyLevelBackground();
+  
+  {
     // Spieler-Startposition - cha me apasse
     player.x = 100;
     player.y = world.height - 130;
@@ -224,4 +233,6 @@ function initLevel() {
         // Ziel ganz rechts
         { x: 6770, y: world.height - 130, width: 30, height: 30, type: 'goal' }
     ];
+}
+
 }

@@ -54,42 +54,25 @@
     #progress-bar { height:100%; width:0; background:#4CAF50; }
 
     #stars-container { position:absolute; top:10px; right:10px; display:flex; gap:6px; }
-
-    #color-buttons {
-    position: absolute;
-    top: 10px;      /* Abstand vom oberen Rand */
-    right: 10px;    /* Abstand vom rechten Rand */
-    display: flex;
-    gap: 8px;       /* Abstand zwischen den Buttons */
-    z-index: 100;   /* über allem anderen */
-    background: transparent; /* kein Hintergrund */
-    padding: 0;
-    display: none; /* Standardmäßig versteckt */
-}
-
-#color-buttons button.colorBtn {
-    width: 30px;
-    height: 30px;
-    border: 2px solid #ffffff; /* optional: damit sie sichtbar bleiben */
-    border-radius: 6px;
-    cursor: pointer;
-    
-}
-
-
+	
+	/* === Color Bar === */
+		.ui-overlay{
+		  position:fixed; top:12px; left:50%; transform:translateX(-50%);
+		  display:none;               /* Start: versteckt bis Level beginnt */
+		  gap:12px; padding:8px 10px; background:rgba(0,0,0,.25);
+		  border-radius:999px; z-index:1000; backdrop-filter:blur(4px);
+		}
+		.ui-overlay .dot{
+		  width:32px; height:32px; border-radius:8px; border:2px solid #fff; cursor:pointer;
+		}
+		.ui-overlay .dot[data-color="green"]  { background:#138a0e; }
+		.ui-overlay .dot[data-color="red"]    { background:#e21010; }
+		.ui-overlay .dot[data-color="purple"] { background:#b300ff; }
+		.ui-overlay .dot[data-color="yellow"] { background:#ffd400; }
 
     </style>
 </head>
 <body>
-
-
-
-<div id="color-buttons">
-  <button class="colorBtn" onclick="player.setColor('green')" style="background-color: green;"></button>
-  <button class="colorBtn" onclick="player.setColor('red')" style="background-color: red;"></button>
-  <button class="colorBtn" onclick="player.setColor('purple')" style="background-color: rgb(183, 0, 255);"></button>
-  <button class="colorBtn" onclick="player.setColor('yellow')" style="background-color: rgb(255, 225, 0);"></button>
-</div>
 
 <div id="gameExplanation">
     <h1>Willkommen bei Think to Survive</h1>
@@ -117,6 +100,13 @@
 </div>
 
 <canvas id="gameCanvas"></canvas>
+<!-- Color Bar -->
+<div id="colorBar" class="ui-overlay">
+  <button class="dot" data-color="green"  aria-label="Green"></button>
+  <button class="dot" data-color="red"    aria-label="Red"></button>
+  <button class="dot" data-color="purple" aria-label="Purple"></button>
+  <button class="dot" data-color="yellow" aria-label="Yellow"></button>
+</div>
 
 <audio id="MusicGameplay" loop>
   <source src="audio/music.mp3" type="audio/mpeg">
@@ -124,9 +114,11 @@
 </audio>
 
 <script src="js/player.js"></script>
+<script src="js/sound.js"></script>
 <script src="js/engine.js"></script>
 
 <script>
+
 /* -----------------------
    Level-Skript laden
 ----------------------- */
@@ -139,8 +131,6 @@ window.levelReady = false;
     script.onload = () => { window.levelReady = true; console.log('[Index] Levelscript geladen:', script.src); };
     script.onerror = () => { console.warn('[Index] Levelscript konnte nicht geladen werden:', script.src); };
     document.body.appendChild(script);
-    
-
 })();
 
 /* -----------------------
@@ -408,15 +398,34 @@ function finishQuiz(){
     // Canvas sichtbar machen
     const canvas = document.getElementById('gameCanvas');
     canvas.style.display = 'block';
-
-    document.getElementById('color-buttons').style.display = 'flex'; 
+	document.getElementById('colorBar').style.display = 'flex';
 
     if (typeof maybeStartGame === 'function') maybeStartGame();
-
 }
 
 window.addEventListener('load', displayQuestion);
 window.checkAnswer = checkAnswer;
+</script>
+<script>
+(function(){
+  const bar = document.getElementById('colorBar');
+  if (!bar) return;
+
+  // Buttons klicken -> Sprite wechseln
+  bar.addEventListener('click', (e) => {
+    const btn = e.target.closest('button[data-color]');
+    if (!btn || !window.player) return;
+    player.setColor(btn.dataset.color);
+  });
+
+  // Optional: Hotkeys 1–4
+  window.addEventListener('keydown', (e) => {
+    if (!window.player) return;
+    const map = { '1':'green','2':'red','3':'purple','4':'yellow' };
+    const c = map[e.key];
+    if (c) player.setColor(c);
+  });
+})();
 </script>
 
 </body>

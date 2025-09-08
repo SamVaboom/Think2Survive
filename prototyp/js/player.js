@@ -4,7 +4,7 @@
 const player = {
     x: 50,
     y: 300,
-    width: 64,
+    width: 64,        // wird beim Zeichnen skaliert – du kannst das hier lassen
     height: 32,
     baseHeight: 30,
     dx: 0,
@@ -19,7 +19,7 @@ const player = {
     color: 'blue',
     borderColor: 'black',
 
-    // Lives/Respawn (Default 3, kann durch Quiz überschrieben werden)
+    // Lives/Respawn
     lives: 3,
     spawnPoint: { x: 50, y: 300 },
 
@@ -27,29 +27,39 @@ const player = {
     sprite: {
         img: (() => {
             const im = new Image();
-            im.src = 'Images/Chameleon_green.png'; // Standardfarbe = grün
+            im.src = 'Images/NewChameleon.png'; // Achte auf Gross-/Kleinschreibung
             return im;
         })(),
-        rows: 3,
-        frameW: 64,
+        rows: 3,          // 3 Frames untereinander: 1=oben, 2=mitte (idle), 3=unten
+        frameW: 64,       // wird onload überschrieben, falls nötig
         frameH: 32,
-        index: 1,
-        orderWalk: [0,1,2],
+        index: 1,         // 0=oben, 1=mitte (Idle), 2=unten
+        orderWalk: [0, 1, 2],
         timer: 0,
-        fps: 8,
-        facing: 1
-    },
-
-    // Farbe ändern
-    setColor(newColor) {
-        this.color = newColor;
-        this.sprite.img.src = `Images/chameleon_${newColor}.png`;
+        fps: 8,           // Lauf-Animation
+        facing: 1         // 1 = rechts, -1 = links
     }
 };
 
+// Player auch global verfügbar machen
+window.player = player;
+
+// Farbwechsel-Funktion für Chamäleon
+player.setColor = function (newColor) {
+  this.sprite.img.src = `Images/chameleon_${newColor}.png`;
+};
+
+// wenn das Bild geladen ist, Framehöhe aus Bild ableiten
 player.sprite.img.onload = () => {
+    // Dein Sheet ist eine Spalte mit 3 Zeilen
     player.sprite.frameW = player.sprite.img.width;
     player.sprite.frameH = Math.floor(player.sprite.img.height / player.sprite.rows);
+};
+// Farbumschaltung für Chamäleon hinzufügen
+player.setColor = function (newColor) {
+  this.color = newColor; // optional speichern
+  this.sprite.img.src = `Images/chameleon_${newColor}.png`; 
+  // Dateien: chameleon_green.png, chameleon_red.png, chameleon_purple.png, chameleon_yellow.png
 };
 
 // ----------------------
@@ -57,17 +67,21 @@ player.sprite.img.onload = () => {
 // ----------------------
 function updatePlayerAnimation(dt) {
     const s = player.sprite;
+
+    // Blickrichtung merken (nur bei spürbarer Bewegung wechseln)
     if (player.dx > 0.1) s.facing = 1;
     if (player.dx < -0.1) s.facing = -1;
 
     const movingOnGround = Math.abs(player.dx) > 0.1 && player.onGround;
 
     if (!movingOnGround) {
+        // Idle: Mitte (Index 1)
         s.index = 1;
         s.timer = 0;
         return;
     }
 
+    // Walk: 1→2→3 (Index 0→1→2) in Schleife
     s.timer += dt;
     const step = 1 / s.fps;
     if (s.timer >= step) {
@@ -82,6 +96,7 @@ function updatePlayerAnimation(dt) {
 // Spieler-Update
 // ----------------------
 function updatePlayer(keys, prevKeys) {
+    // Input
     if (keys['a'])      player.dx = -player.speed;
     else if (keys['d']) player.dx =  player.speed;
     else                player.dx =  0;
@@ -95,22 +110,24 @@ function updatePlayer(keys, prevKeys) {
     else           player.height = player.baseHeight;
 
     // Physik
-    player.dy += 0.5;
+    player.dy += 0.5;     // Gravitation
     player.x  += player.dx;
     player.y  += player.dy;
 
-    // Animation (falls dt nicht übergeben, approximieren wir 1/60)
-    updatePlayerAnimation(1/60);
+    // Animation (falls dein engine.js kein dt übergibt, nehmen wir ~60 FPS)
+    updatePlayerAnimation(1 / 60);
 }
 
 // ----------------------
-// Ziehen mit Zunge
+// Sich mit de Zunge zum Objekt zieh
 // ----------------------
 function pullTo(x, y) {
     const centerX = player.x + player.width / 2;
     const centerY = player.y + player.height / 2;
     const dx = x - centerX;
     const dy = y - centerY;
+
+    // apasse für gschwindigkeit bim uezieh
     player.dx = dx * 0.08;
     player.dy = dy * 0.08;
 }
@@ -126,6 +143,7 @@ function drawPlayer(ctx) {
     const imgReady = s.img && s.img.complete && s.img.naturalWidth > 0;
 
     if (!imgReady) {
+        // Fallback-Box bis Sprite geladen ist
         ctx.fillStyle = player.color;
         ctx.fillRect(player.x - camX, player.y - camY, player.width, player.height);
     } else {
@@ -141,6 +159,7 @@ function drawPlayer(ctx) {
 
         ctx.save();
 
+        // Horizontal spiegeln, wenn nach links blickend
         if (s.facing === -1) {
             ctx.translate(dx + dw / 2, dy + dh / 2);
             ctx.scale(-1, 1);
@@ -151,6 +170,7 @@ function drawPlayer(ctx) {
         ctx.restore();
     }
 
+    // Camouflage-Rand (bleibt wie gehabt)
     if (player.isCamouflaged) {
         ctx.strokeStyle = player.borderColor;
         ctx.lineWidth = 2;
@@ -162,17 +182,20 @@ function drawPlayer(ctx) {
 // Tarne
 // ----------------------
 function toggleCamouflage() {
+    // 10s Cooldown zwischen Aktivierungen
     if (player.CamoLimit === false) {
         player.isCamouflaged = !player.isCamouflaged;
         player.CamoLimit = true;
-        setTimeout(limitCamouflage, 10000);
+        setTimeout(limitCamouflage, 10000); // Cooldown-Dauer
     } else if (player.CamoLimit === true && player.isCamouflaged === true) {
+        // vorzeitig ausschalten erlaubt
         player.isCamouflaged = !player.isCamouflaged;
     }
 
     if (player.isCamouflaged) {
         player.color = 'white';
         player.borderColor = 'blue';
+        // Tarnung hält 1s, dann automatisch zurück
         setTimeout(toggleCamouflage, 1000);
     } else {
         player.color = 'blue';
@@ -191,7 +214,7 @@ function resetPlayer() {
     player.lives--;
     if (player.lives <= 0) {
         alert("Game Over");
-        window.history.back();
+         window.history.back();
         player.lives = 3;
     }
     player.x = player.spawnPoint.x;
