@@ -10,3 +10,7 @@ E - Tarne
 Zum level bearbeite eifach prototyp > js > levels und denn Level 1 bearbeite. Zurzit wird eifach Level 1 gstartet wenn me spiu startet. 
 
 Alles kommentiert i de skripts
+
+
+
+Wut??
