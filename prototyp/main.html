@@ -5,6 +5,7 @@
     <title>Think to Survive – Hauptmenu & Quiz</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style>
+    /* === Grundlayout für Seite === */
     html,body {
         margin:0;
         padding:0;
@@ -16,6 +17,7 @@
         color:#eee;
     }
 
+    /* Canvas (Spielbereich), am Anfang unsichtbar */
     canvas {
         display:none;
         width:100vw;
@@ -23,12 +25,14 @@
         background:#eef;
     }
 
+    /* Erklärungstext vor dem Quiz */
     #gameExplanation {
         text-align:center;
         margin-top:16px;
         color:#ddd;
     }
 
+    /* === Quiz-Box === */
     #quiz {
         position: absolute;
         left: 50%;
@@ -47,43 +51,50 @@
     #quiz h2 { margin: 0 0 12px 0; }
     .answers { list-style:none; padding:0; margin:8px 0 12px 0; }
     .answers li { margin-bottom:8px; }
+
+    /* Buttons im Quiz */
     button { padding:8px 14px; border-radius:6px; border:none; background:#4CAF50; color:white; cursor:pointer; }
     button:disabled { opacity:.6; cursor:not-allowed; }
 
+    /* Fortschrittsbalken Quiz */
     #progress-bar-container { width:100%; background:#e0e0e0; border-radius:5px; height:18px; overflow:hidden; }
     #progress-bar { height:100%; width:0; background:#4CAF50; }
 
+    /* Container für Sterne (richtige Antworten) */
     #stars-container { position:absolute; top:10px; right:10px; display:flex; gap:6px; }
 	
-	/* === Color Bar === */
-		.ui-overlay{
-		  position:fixed; top:12px; left:50%; transform:translateX(-50%);
-		  display:none;               /* Start: versteckt bis Level beginnt */
-		  gap:12px; padding:8px 10px; background:rgba(0,0,0,.25);
-		  border-radius:999px; z-index:1000; backdrop-filter:blur(4px);
-		}
-		.ui-overlay .dot{
-		  width:32px; height:32px; border-radius:8px; border:2px solid #fff; cursor:pointer;
-		}
-		.ui-overlay .dot[data-color="green"]  { background:#138a0e; }
-		.ui-overlay .dot[data-color="red"]    { background:#e21010; }
-		.ui-overlay .dot[data-color="purple"] { background:#b300ff; }
-		.ui-overlay .dot[data-color="yellow"] { background:#ffd400; }
+	/* === Farb-Auswahl-Bar im Spiel === */
+	.ui-overlay{
+	  position:fixed; top:12px; left:50%; transform:translateX(-50%);
+	  display:none;               /* Wird erst eingeblendet wenn Level startet */
+	  gap:12px; padding:8px 10px; background:rgba(0,0,0,.25);
+	  border-radius:999px; z-index:1000; backdrop-filter:blur(4px);
+	}
+	.ui-overlay .dot{
+	  width:32px; height:32px; border-radius:8px; border:2px solid #fff; cursor:pointer;
+	}
+	.ui-overlay .dot[data-color="green"]  { background:#138a0e; }
+	.ui-overlay .dot[data-color="red"]    { background:#e21010; }
+	.ui-overlay .dot[data-color="purple"] { background:#b300ff; }
+	.ui-overlay .dot[data-color="yellow"] { background:#ffd400; }
 
     </style>
 </head>
 <body>
 
+<!-- Begrüßungstext vor dem Quiz -->
 <div id="gameExplanation">
     <h1>Willkommen bei Think to Survive</h1>
     <p>Beantworte zuerst ein kurzes Quiz (5 Fragen). Deine richtigen Antworten werden als Leben ins Level übernommen.</p>
 </div>
 
+<!-- Quiz Oberfläche -->
 <div id="quiz">
     <div id="stars-container"></div>
     <div id="question-number">Frage 1 von 5</div>
     <h2 id="question">Lade Fragen...</h2>
 
+    <!-- Antwortmöglichkeiten -->
     <ul class="answers">
         <li><input type="radio" name="answer" id="answer1" value="0"> <label for="answer1" id="answer1Text"></label></li>
         <li><input type="radio" name="answer" id="answer2" value="1"> <label for="answer2" id="answer2Text"></label></li>
@@ -94,13 +105,16 @@
     <button id="checkButton" onclick="checkAnswer()">Antwort prüfen</button>
     <div class="result" id="result"></div>
 
+    <!-- Fortschrittsanzeige -->
     <div id="progress-bar-container" style="margin-top:12px;">
         <div id="progress-bar"></div>
     </div>
 </div>
 
+<!-- Spielfeld (wird später eingeblendet) -->
 <canvas id="gameCanvas"></canvas>
-<!-- Color Bar -->
+
+<!-- Farb-Auswahl-Bar für Spieler -->
 <div id="colorBar" class="ui-overlay">
   <button class="dot" data-color="green"  aria-label="Green"></button>
   <button class="dot" data-color="red"    aria-label="Red"></button>
@@ -108,19 +122,20 @@
   <button class="dot" data-color="yellow" aria-label="Yellow"></button>
 </div>
 
+<!-- Hintergrundmusik -->
 <audio id="MusicGameplay" loop>
   <source src="audio/music.mp3" type="audio/mpeg">
   Dein Browser unterstützt das Audio-Element nicht.
 </audio>
 
+<!-- Externe Skripte für Spielmechanik -->
 <script src="js/player.js"></script>
 <script src="js/sound.js"></script>
 <script src="js/engine.js"></script>
 
 <script>
-
 /* -----------------------
-   Level-Skript laden
+   Level-Skript dynamisch laden
 ----------------------- */
 const params = new URLSearchParams(window.location.search);
 const level = parseInt(params.get("level")) || 1;
@@ -199,7 +214,7 @@ const questionsLevel2 = [
     { "question": "Welcher Kanton grenzt sowohl an Italien als auch an Österreich?", "answers": ["Wallis", "Tessin", "Graubünden", "Uri"], "correctAnswer": 2 }
 ];
 
-// Level 3–5
+// Level 3
 const questionsLevel3 = [
 	{ "question": "Welcher Baum ist der häufigste in der Schweiz?", "answers": ["Lärche", "Birke", "Fichte", "Buche"], "correctAnswer": 2 },
     { "question": "Welche Baumart ist typisch für subalpine Wälder?", "answers": ["Eiche", "Lärche", "Hainbuche", "Esche"], "correctAnswer": 1 },
@@ -227,6 +242,8 @@ const questionsLevel3 = [
     { "question": "Welche Baumart ist besonders häufig im Schweizer Mittelland zu finden?", "answers": ["Kastanie", "Buche", "Eiche", "Birke"], "correctAnswer": 1 },
     { "question": "Wie nennt man die wissenschaftliche Lehre von Pflanzen?", "answers": ["Zoologie", "Biologie", "Botanik", "Ökologie"], "correctAnswer": 2 }
 ]; 
+
+// Level 4
 const questionsLevel4 = [
 	{ "question": "Was ist der höchste Berg der Schweiz?", "answers": ["Matterhorn", "Dufourspitze", "Rigi", "Pilatus"], "correctAnswer": 1 },
   { "question": "Welches Gestein kommt am meisten vor in den Schweizer Alpen?", "answers": ["Granit", "Sandstein", "Vulkangestein", "Kalk"], "correctAnswer": 0 },
@@ -259,6 +276,8 @@ const questionsLevel4 = [
   { "question": "Wie nennt man den Südwind, welcher als warmer, trockener Fallwind in die Täler bläst?", "answers": ["Schirokko", "Föhn", "Mistral", "Bora"], "correctAnswer": 1 },
   { "question": "Wie kalt war die tiefste je gemessene Temperatur in der Schweiz?", "answers": ["-28 °C", "-32 °C", "-38 °C", "-41.8 °C"], "correctAnswer": 3 }
 ];
+
+// Level 5
 const questionsLevel5 = [
 	{ "question": "Welche Partei hat den grössten Wähler*innen Anteil Stand 2023?", "answers": ["SVP","SP","FDP","Die Mitte"], "correctAnswer": 0 },
   { "question": "Wie viele Mitglieder hat der Bundesrat?", "answers": ["5","7","9","11"], "correctAnswer": 1 },
@@ -293,7 +312,7 @@ const questionsLevel5 = [
 ];
 
 /* -----------------------
-   Quiz starten
+   Quiz starten (Initialisierung)
 ----------------------- */
 const levelQuestionsMap = {
     1: questionsLevel1,
@@ -303,8 +322,10 @@ const levelQuestionsMap = {
     5: questionsLevel5
 };
 
+// Fragen für das aktuelle Level auswählen
 let rawQuestions = levelQuestionsMap[level] || questionsLevel1;
 
+// Fragen mischen und vorbereiten
 function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } }
 const questionsAll = rawQuestions.map(q => ({
     question: q.question,
@@ -312,22 +333,27 @@ const questionsAll = rawQuestions.map(q => ({
     correctAnswer: Math.max(0, (q.correctAnswer|0))
 }));
 shuffle(questionsAll);
-const TOTAL_QUESTIONS = 5;
+const TOTAL_QUESTIONS = 5; // Nur 5 Fragen pro Runde
 const questions = questionsAll.slice(0, TOTAL_QUESTIONS);
 
 /* -----------------------
-   Quiz-Status
+   Quiz-Status Variablen
 ----------------------- */
 let currentQuestionIndex = 0;
 let correctAnswersCount = 0;
 window.quizFinished = false;
 
+// Referenzen zu HTML-Elementen
 const qElem = document.getElementById('question');
 const resultElem = document.getElementById('result');
 const progressElem = document.getElementById('progress-bar');
 const starsContainer = document.getElementById('stars-container');
 const explanation = document.getElementById('gameExplanation');
 
+/* -----------------------
+   Funktionen fürs Quiz
+----------------------- */
+// Frage anzeigen
 function displayQuestion(){
     if (explanation) explanation.style.display = 'none';
     const q = questions[currentQuestionIndex];
@@ -343,12 +369,14 @@ function displayQuestion(){
     progressElem.style.width = `${((currentQuestionIndex+1)/TOTAL_QUESTIONS)*100}%`;
 }
 
+// Stern hinzufügen bei richtiger Antwort
 function addStar(){
     const s = document.createElement('span');
     s.textContent = '⭐';
     starsContainer.appendChild(s);
 }
 
+// Antwort überprüfen
 function checkAnswer(){
     const btn = document.getElementById('checkButton');
     btn.disabled = true;
@@ -373,9 +401,11 @@ function checkAnswer(){
         resultElem.style.color = 'red';
     }
 
+    // Nach kurzer Zeit nächste Frage laden
     setTimeout(()=>{ btn.disabled = false; nextQuestion(); }, 800);
 }
 
+// Nächste Frage oder Quiz beenden
 function nextQuestion(){
     currentQuestionIndex++;
     if (currentQuestionIndex < TOTAL_QUESTIONS) {
@@ -385,17 +415,19 @@ function nextQuestion(){
     }
 }
 
+// Quiz beenden -> Spiel starten
 function finishQuiz(){
     document.getElementById('quiz').style.display = 'none';
-    window.playerLives = Math.max(1, correctAnswersCount);
+    window.playerLives = Math.max(1, correctAnswersCount); // min. 1 Leben
     window.gameConfig = { lives: window.playerLives };
     window.quizFinished = true;
 
+    // Musik starten
     const audio = document.getElementById('MusicGameplay');
     audio.volume = 0.3;
     audio.play().catch(()=>{});
 
-    // Canvas sichtbar machen
+    // Canvas und ColorBar einblenden
     const canvas = document.getElementById('gameCanvas');
     canvas.style.display = 'block';
 	document.getElementById('colorBar').style.display = 'flex';
@@ -403,22 +435,27 @@ function finishQuiz(){
     if (typeof maybeStartGame === 'function') maybeStartGame();
 }
 
+// Erste Frage laden, sobald Seite fertig
 window.addEventListener('load', displayQuestion);
 window.checkAnswer = checkAnswer;
 </script>
+
 <script>
+/* -----------------------
+   Farbwechsel-Bar für Spielfigur
+----------------------- */
 (function(){
   const bar = document.getElementById('colorBar');
   if (!bar) return;
 
-  // Buttons klicken -> Sprite wechseln
+  // Klick auf Button -> Spielerfarbe ändern
   bar.addEventListener('click', (e) => {
     const btn = e.target.closest('button[data-color]');
     if (!btn || !window.player) return;
     player.setColor(btn.dataset.color);
   });
 
-  // Optional: Hotkeys 1–4
+  // Hotkeys (1–4) für Farben
   window.addEventListener('keydown', (e) => {
     if (!window.player) return;
     const map = { '1':'green','2':'red','3':'purple','4':'yellow' };
@@ -430,4 +467,3 @@ window.checkAnswer = checkAnswer;
 
 </body>
 </html>
-

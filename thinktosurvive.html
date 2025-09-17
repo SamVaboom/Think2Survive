@@ -4,29 +4,33 @@
   <meta charset="UTF-8">
   <title>Think to Survive – Hauptmenü</title>
   <style>
+    /* --- Allgemeine Layout-Einstellungen --- */
     body {
       font-family: Arial, sans-serif;
       background-color: #f0f4f7;
-      background-image: url('prototyp/Images/hintergrund.png');
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: center;
+      background-image: url('prototyp/Images/hintergrund.png'); /* Hintergrundbild */
+      background-size: cover; /* Bild wird auf gesamte Fläche skaliert */
+      background-repeat: no-repeat; /* verhindert Wiederholung */
+      background-position: center; /* Bild wird zentriert */
       margin: 0;
       height: 120vh;
       text-align: center;
       padding: 50px;
     }
 
+    /* --- Überschrift-Styling --- */
     h1 {
       font-size: 2.5em;
       margin-bottom: 10px;
     }
 
+    /* --- Absatz-Styling --- */
     p {
       font-size: 1.1em;
       margin-bottom: 20px;
     }
 
+    /* --- Container für Level-Reihen --- */
     .levelRow {
       display: flex;
       justify-content: center;
@@ -35,6 +39,7 @@
       width: 350px;
     }
 
+    /* --- Buttons in den Level-Reihen --- */
     .levelRow button {
       flex: 2;
       padding: 12px 24px;
@@ -45,6 +50,7 @@
       margin-right: 10px;
     }
 
+    /* --- Highscore-Box neben jedem Level --- */
     .scoreBox {
       flex: 1;
       background-color: #fff;
@@ -55,6 +61,7 @@
       text-align: center;
     }
 
+    /* --- Aktive (spielbare) Buttons --- */
     .active {
       background-color: #cc6600;
       color: white;
@@ -64,11 +71,14 @@
       background-color: #ac4801;
     }
 
+    /* --- Gesperrte (nicht klickbare) Buttons --- */
     .locked {
       background-color: #ccc;
       color: #666;
       cursor: not-allowed;
     }
+
+    /* --- Grüne Steuerungs-Buttons (Anleitung, Reset etc.) --- */
     .greenBtn {
       background-color: #05621a; /* Grün */
       color: white;
@@ -84,8 +94,9 @@
       background-color: #034612; /* dunkleres Grün beim Hover */
     }
 
+    /* --- Popup-Fenster (Anleitung/Über das Spiel) --- */
     #popup {
-      display: none;
+      display: none; /* standardmäßig unsichtbar */
       position: fixed;
       top: 20%;
       left: 50%;
@@ -115,9 +126,10 @@
 </head>
 <body>
 
-
+  <!-- Abstand nach oben -->
   <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-  <!-- Level Buttons mit Highscore -->
+
+  <!-- Level-Buttons mit Highscore-Anzeige -->
   <div class="levelRow">
     <button id="level1Btn" class="active" onclick="startLevel(1)">Level 1: Zoo</button>
     <div class="scoreBox" id="score1">--</div>
@@ -143,6 +155,7 @@
     <div class="scoreBox" id="score5">--</div>
   </div>
 
+  <!-- Steuerungs-Buttons -->
   <button class="greenBtn" onclick="showPopup('Anleitung', `
     - Beantworte Fragen pro Level für Leben<br>
     - Weiche Hindernissen aus<br>
@@ -158,19 +171,20 @@
   <button class="greenBtn" onclick="resetProgress()">Fortschritt zurücksetzen</button>
   <button class="greenBtn" onclick="resetHighscore()">Highscore zurücksetzen</button>
 
-  <!-- Popup -->
+  <!-- Popup-Fenster -->
   <div id="popup">
     <h2 id="popupTitle"></h2>
     <p id="popupContent"></p>
     <button onclick="closePopup()">Schließen</button>
   </div>
 
-  <!-- NEW: sound manager -->
+  <!-- Sound-Manager-Skript -->
   <script src="prototyp/js/sound.js"></script>
 
   <script>
+    /* --- Fortschritt laden und Buttons/Highscores aktualisieren --- */
     function loadProgress() {
-      let unlocked = 5; // Test: alle Level frei
+      let unlocked = 5; // Testweise alle Level freigeschaltet
       for (let i = 1; i <= 5; i++) {
         let btn = document.getElementById(`level${i}Btn`);
         if (i <= unlocked) {
@@ -181,7 +195,7 @@
           btn.classList.add("locked");
         }
 
-        // Highscores laden
+        // Highscores aus localStorage laden
         let time = localStorage.getItem("bestTime" + i);
         let scoreBox = document.getElementById("score" + i);
         if (time) {
@@ -192,17 +206,18 @@
       }
     }
 
+    /* --- Level starten, wenn freigeschaltet --- */
     function startLevel(level) {
       let unlocked = 5;
       if (level > unlocked) {
         alert("Dieses Level ist noch gesperrt.");
         return;
       }
-      // NEW: click sound on navigation
-      sound?.uiClick();
+      sound?.uiClick(); // Klick-Sound abspielen
       window.location.href = `./prototyp/main.html?level=${level}`;
     }
 
+    /* --- Level freischalten (wird in Spiellogik genutzt) --- */
     function unlockLevel(level) {
       let current = parseInt(localStorage.getItem("unlockedLevel")) || 1;
       if (level > current && level <= 5) {
@@ -210,6 +225,7 @@
       }
     }
 
+    /* --- Highscore aktualisieren, wenn besser --- */
     function updateHighscore(level, seconds) {
       const best = parseFloat(localStorage.getItem("bestTime" + level));
       if (!best || seconds < best) {
@@ -219,15 +235,17 @@
       }
     }
 
+    /* --- Spielfortschritt zurücksetzen --- */
     function resetProgress() {
       if (confirm("Möchtest du wirklich deinen Spielfortschritt zurücksetzen?")) {
         localStorage.setItem("unlockedLevel", 1);
         loadProgress();
         alert("Fortschritt zurückgesetzt.");
-        sound?.uiClick(); // NEW
+        sound?.uiClick(); // Sound
       }
     }
 
+    /* --- Highscores löschen --- */
     function resetHighscore() {
       if (confirm("Highscore wirklich löschen?")) {
         for (let i = 1; i <= 5; i++) {
@@ -235,33 +253,37 @@
         }
         loadProgress();
         alert("Highscores gelöscht.");
-        sound?.uiClick(); // NEW
+        sound?.uiClick(); // Sound
       }
     }
 
+    /* --- Popup anzeigen --- */
     function showPopup(title, content) {
       document.getElementById("popupTitle").innerHTML = title;
       document.getElementById("popupContent").innerHTML = content;
       document.getElementById("popup").style.display = "block";
-      sound?.uiClick(); // NEW
+      sound?.uiClick();
     }
 
+    /* --- Popup schließen --- */
     function closePopup() {
       document.getElementById("popup").style.display = "none";
-      sound?.uiClick(); // NEW
+      sound?.uiClick();
     }
 
-    // NEW: unlock audio + start music on first gesture and add UI clicks for all buttons
+    /* --- Musik starten beim ersten Nutzerklick + Klick-Sound für Buttons --- */
     window.addEventListener('pointerdown', function once() {
       sound?.playMusic();
       window.removeEventListener('pointerdown', once);
     });
+
     window.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('button').forEach(btn => {
         btn.addEventListener('click', () => sound?.uiClick());
       });
     });
 
+    /* --- Beim Laden Spielfortschritt initialisieren --- */
     loadProgress();
   </script>
 
