@@ -219,7 +219,7 @@ function resetPlayer() {
     player.lives--; // Leben abziehen
     if (player.lives <= 0) {
         alert("Game Over");
-        window.history.back(); // zurück ins Menü
+        window.location.href = `../index.html`; // zurück ins Menü
         player.lives = 3;      // Leben zurücksetzen
     }
     // Spieler zurück zum Spawn

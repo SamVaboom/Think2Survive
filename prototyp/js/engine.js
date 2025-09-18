@@ -386,7 +386,7 @@ function handleCollision(obj) {
     case 'goal':
       if (window.sound) { sound.stopWalk(); sound.win(); }
       alert('Level beendet!');
-      window.history.back();
+      window.location.href = `../index.html`;
       break;
 
     case 'catcher':
